@@ -1,5 +1,6 @@
 package org.dci.walletapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,30 +13,51 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView welcomeText;
-    TextView currentBalance;
-    Button addIncomeButton;
-    Button addExpenseButton;
-    Button historyButton;
-    Button profileButton;
-    Button categoryManagementButton;
-    Button supportButton;
+    private Button addIncomeButton;
+    private Button addExpenseButton;
+    private Button historyButton;
+    private Button profileButton;
+    private Button categoryManagementButton;
+    private Button supportButton;
+
+    private TextView welcomeTextView;
+    private TextView currentBalanceText;
+    private TextView currentBalance;
+
+    private final String userName = "WalletUser";
+    private double currentBalanceEuro = 111.11;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-
-
-        welcomeText = findViewById(R.id.welcomeText);
-        currentBalance = findViewById(R.id.currentBalance);
         addIncomeButton = findViewById(R.id.addIncomeButton);
         addExpenseButton = findViewById(R.id.addExpenseButton);
-        historyButton = findViewById(R.id.historyButton);
         profileButton = findViewById(R.id.profileButton);
         categoryManagementButton = findViewById(R.id.categoryManagementButton);
         supportButton = findViewById(R.id.supportButton);
+        historyButton = findViewById(R.id.historyButton);
+
+        welcomeTextView = findViewById(R.id.welcomeText);
+        currentBalanceText = findViewById(R.id.currentBalanceText);
+        currentBalance = findViewById(R.id.currentBalance);
+
+        welcomeTextView.setText("Welcome back, " + userName +"!");
+        currentBalanceText.setText("Your current balance is: ");
+        currentBalance.setText(currentBalanceEuro + "€");
+
+        addIncomeButton.setBackgroundColor(Color.GREEN);
+        addExpenseButton.setBackgroundColor(Color.RED);
+
+
+
+
+
+
     }
 }
