@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
 
         currentBalance.setText(formattedBalance);
 
+        addIncomeButton.setBackgroundTintList(null);
+        addExpenseButton.setBackgroundTintList(null);
+
+
+
 
 
 

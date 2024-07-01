@@ -29,7 +29,6 @@
             android:id="@+id/currentBalanceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:paddingTop="60dp"
             android:paddingBottom="20dp"
             android:text="Your current balance is:"
@@ -55,22 +54,23 @@
 
         <Button
             android:id="@+id/addIncomeButton"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginEnd="16dp"
             android:text="+"
-            android:textSize="24sp"
-            android:backgroundTint="@color/lime"
+            android:textSize="30sp"
+            android:background="@drawable/circular_button_income"
             />
 
         <Button
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:id="@+id/addExpenseButton"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
             android:layout_marginStart="16dp"
             android:text="-"
-            android:textSize="24sp"
-            android:backgroundTint="@color/red"
+            android:textSize="30sp"
+            android:background="@drawable/circular_button_expense"
             />
 
     </LinearLayout>
