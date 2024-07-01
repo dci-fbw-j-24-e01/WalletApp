@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="fill_vertical"
     android:orientation="vertical"
-    android:padding="30dp"
+    android:padding="10dp"
 
     tools:context=".MainActivity">
 
@@ -19,6 +19,7 @@
             android:id="@+id/welcomeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="20dp"
             android:text="Welcome back!"
@@ -28,7 +29,9 @@
             android:id="@+id/currentBalanceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+
+            android:paddingTop="60dp"
+            android:paddingBottom="20dp"
             android:text="Your current balance is:"
             android:textSize="20sp" />
 
@@ -38,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="Balance (Amount)"
-            android:textSize="40sp" />
+            android:textSize="50sp" />
 
     </LinearLayout>
 
@@ -84,7 +87,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="History" />
+            android:text="History"
+           android:backgroundTint="@color/dodger_blue"/>
 
     </LinearLayout>
 

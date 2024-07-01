@@ -12,6 +12,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button addIncomeButton;
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentBalance;
 
     private final String userName = "WalletUser";
-    private double currentBalanceEuro = 111.11;
+    private double currentBalanceEuro = 16180.33;
 
 
 
@@ -49,8 +52,16 @@ public class MainActivity extends AppCompatActivity {
         currentBalance = findViewById(R.id.currentBalance);
 
         welcomeTextView.setText("Welcome back, " + userName +"!");
-        currentBalanceText.setText("Your current balance is: ");
-        currentBalance.setText(currentBalanceEuro + "€");
+        currentBalanceText.setText("Your current balance: ");
+
+
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("de", "DE"));
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setMaximumFractionDigits(2);
+        String formattedBalance = numberFormat.format(currentBalanceEuro);
+
+        currentBalance.setText(formattedBalance);
+
 
 
 
@@ -59,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, DummyActivity.class);
             intent.putExtra("DummyText", "Income Screen!");
             startActivity(intent);
+
 
 
         });
