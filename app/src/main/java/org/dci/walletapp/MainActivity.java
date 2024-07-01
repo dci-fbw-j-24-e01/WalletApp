@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
         currentBalanceText.setText("Your current balance is: ");
         currentBalance.setText(currentBalanceEuro + "€");
 
-        addIncomeButton.setBackgroundColor(Color.GREEN);
-        addExpenseButton.setBackgroundColor(Color.RED);
+
 
         addIncomeButton.setOnClickListener((view) -> {
 
