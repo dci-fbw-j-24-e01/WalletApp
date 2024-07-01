@@ -20,5 +20,13 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+test();
+    }
+
+    private void test() {
+        Transaction transaction = new Transaction(2.0, "Description", true, "whatever");
+        JsonFilesOperations filesOperations = new JsonFilesOperations();
+        filesOperations.write(this, transaction);
     }
 }
