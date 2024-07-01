@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="60dp"
             android:paddingBottom="20dp"
-            android:text="Your current balance is:"
+            android:text="You have a balance of:"
             android:textSize="20sp" />
 
         <TextView

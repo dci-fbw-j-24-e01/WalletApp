@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         currentBalance = findViewById(R.id.currentBalance);
 
         welcomeTextView.setText("Welcome back, " + userName +"!");
-        currentBalanceText.setText("Your current balance: ");
+        currentBalanceText.setText("You have a balance of:");
 
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("de", "DE"));
