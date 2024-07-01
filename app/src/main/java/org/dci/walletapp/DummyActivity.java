@@ -24,6 +24,7 @@ public class DummyActivity extends AppCompatActivity {
             return insets;
         });
 
+
         dummyTextView = findViewById(R.id.dummyTextView);
         dummyTextView.setText(getIntent().getStringExtra("DummyText"));
 
