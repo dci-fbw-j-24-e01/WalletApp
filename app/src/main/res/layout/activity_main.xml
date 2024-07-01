@@ -8,12 +8,75 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Your current balance is:"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <TextView
+        android:id="@+id/currentBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&quot;Balance&quot;"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="153dp" />
+
+    <Button
+        android:id="@+id/addIncomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="51dp"
+        android:text="Add Income"
+        app:layout_constraintEnd_toStartOf="@+id/addExpenseButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="280dp" />
+
+    <Button
+        android:id="@+id/addExpenseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:layout_marginEnd="57dp"
+        android:text="Add Expense"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addIncomeButton"
+        tools:layout_editor_absoluteY="280dp" />
+
+    <Button
+        android:id="@+id/historyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="History"
+        app:layout_constraintBottom_toTopOf="@+id/categoryManagementButton"
+        app:layout_constraintTop_toBottomOf="@+id/addExpenseButton"
+        tools:layout_editor_absoluteX="158dp" />
+
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="628dp" />
+
+    <Button
+        android:id="@+id/categoryManagementButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="208dp"
+        android:text="Categories"
+        app:layout_constraintTop_toBottomOf="@+id/historyButton"
+        tools:layout_editor_absoluteX="146dp" />
+
+    <Button
+        android:id="@+id/supportButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Support"
+        tools:layout_editor_absoluteX="287dp"
+        tools:layout_editor_absoluteY="628dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
