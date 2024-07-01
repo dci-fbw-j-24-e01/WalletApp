@@ -1,5 +1,6 @@
 package org.dci.walletapp;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -7,6 +8,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -14,18 +17,24 @@ public class JsonFilesOperations {
 
 
     public void write(Context context, Transaction transaction) {
-        String userString = convertTransaction(transaction).toString();
+        String data = convertTransaction(transaction).toString();
 
-        File file = new File(context.getFilesDir(), "transactions.json");
+        ContextWrapper contextWrapper = new ContextWrapper(context);
+        File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
 
-        try (FileWriter fileWriter = new FileWriter(file);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write(userString);
+        File file =  new File(directory, "transaction.json");
 
-        } catch (IOException e) {
+        FileOutputStream fos = null; // save
+        try {
+            fos = new FileOutputStream("transaction.json", true);
+            fos.write(data.getBytes());
+            fos.close();
+
+        }  catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Log.d("tetjson", file.getAbsolutePath());
+
+
     }
 
     private JSONObject convertTransaction(Transaction transaction) {
