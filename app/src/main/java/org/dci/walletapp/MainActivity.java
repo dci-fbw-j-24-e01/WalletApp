@@ -1,5 +1,6 @@
 package org.dci.walletapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
@@ -53,6 +54,56 @@ public class MainActivity extends AppCompatActivity {
 
         addIncomeButton.setBackgroundColor(Color.GREEN);
         addExpenseButton.setBackgroundColor(Color.RED);
+
+        addIncomeButton.setOnClickListener((view) -> {
+
+            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
+            intent.putExtra("DummyText", "Income Screen!");
+            startActivity(intent);
+
+
+        });
+
+        addExpenseButton.setOnClickListener((view) -> {
+
+            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
+            intent.putExtra("DummyText", "Expense Screen!");
+            startActivity(intent);
+
+
+        });
+        historyButton.setOnClickListener((view) -> {
+
+            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
+            intent.putExtra("DummyText", "History Screen!");
+            startActivity(intent);
+
+
+        });
+        profileButton.setOnClickListener((view) -> {
+
+            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
+            intent.putExtra("DummyText", "Profile Screen!");
+            startActivity(intent);
+
+
+        });
+        categoryManagementButton.setOnClickListener((view) -> {
+
+            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
+            intent.putExtra("DummyText", "Category Management Screen!");
+            startActivity(intent);
+
+
+        });
+        supportButton.setOnClickListener((view) -> {
+
+            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
+            intent.putExtra("DummyText", "Suport Screen!");
+            startActivity(intent);
+
+
+        });
 
 
 

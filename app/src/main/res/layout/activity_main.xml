@@ -89,7 +89,7 @@
             android:id="@+id/supportButton"
             android:layout_width="100dp"
             android:layout_height="80dp"
-            android:text="FAQs"
+            android:text="Support"
             android:textSize="12sp"
             android:layout_marginStart="8dp"/>
     </LinearLayout>
