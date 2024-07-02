@@ -107,7 +107,9 @@
             android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:text="Profile"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnight_blue"
+            />
 
         <Button
             android:id="@+id/categoryManagementButton"
@@ -115,7 +117,8 @@
             android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:text="Category Management"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnight_blue"/>
 
         <Button
             android:id="@+id/supportButton"
@@ -123,6 +126,7 @@
             android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:text="Support"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnight_blue"/>
     </LinearLayout>
 </LinearLayout>
