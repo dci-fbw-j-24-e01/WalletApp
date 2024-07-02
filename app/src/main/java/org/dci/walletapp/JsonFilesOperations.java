@@ -3,14 +3,10 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.util.Log;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -75,18 +71,4 @@ public class JsonFilesOperations {
         return transactionsList;
     }
 
-    private JSONObject convertTransaction(Transaction transaction) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("isIncome", String.valueOf(transaction.isIncome()));
-            jsonObject.put("amount", transaction.getAmount());
-            jsonObject.put("dateTime", transaction.getDateTime());
-            jsonObject.put("incomeSource", transaction.getSource());
-            jsonObject.put("description", transaction.getDescription());
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
-        return jsonObject;
-    }
 }
