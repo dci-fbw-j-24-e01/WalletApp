@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WalletApp</string>
+    <string name="profile_information">Profile Information</string>
+    <string name="edit_pencil_icon">🖊</string>
+    <string name="name">Name</string>
+    <string name="email_sample">example123@gmail.com</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>
