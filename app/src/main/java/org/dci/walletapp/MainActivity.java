@@ -1,12 +1,15 @@
 package org.dci.walletapp;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,8 +32,11 @@ test();
         Transaction transaction1 = new Transaction(546.1, "New Description", false, "Test Source");
 
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-        filesOperations.writeTransaction(this, transaction);
-        filesOperations.writeTransaction(this, transaction1);
+
+        List<Transaction> list = filesOperations.readTransactions(this);
+        list.add(new Transaction(321.1, "Test Description", false, "Test"));
+        filesOperations.writeTransactions(this, list);
+
 
 
 
