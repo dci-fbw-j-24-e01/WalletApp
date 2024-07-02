@@ -1,5 +1,6 @@
 package org.dci.walletapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,12 @@ import java.util.List;
 
 public class HelpAndSupportAdapter extends RecyclerView.Adapter<HelpAndSupportViewHolder> {
 
-    private List<Question> questions;
+    List<Question> questions;
 
-    public HelpAndSupportAdapter() {
-        this.questions = new QuestionsContainer().getQuestionsList();
+    public HelpAndSupportAdapter(List<Question> questions) {
+        this.questions = questions;
+        Log.d("test", questions.get(0).getQuestion());
+
 
     }
 
@@ -39,6 +42,6 @@ public class HelpAndSupportAdapter extends RecyclerView.Adapter<HelpAndSupportVi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return questions.size();
     }
 }
