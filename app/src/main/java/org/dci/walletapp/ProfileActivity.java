@@ -2,8 +2,11 @@ package org.dci.walletapp;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -20,6 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -27,6 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
     EditText emailEditText;
 
     ImageView profileImageView;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
     @Override
@@ -49,6 +55,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.saveButton);
         Button cancelButton = findViewById(R.id.cancelButton);
+
+        Button editImageButton = findViewById(R.id.editImageButton);
+
+        editImageButton.setOnClickListener(view -> {
+            Log.d("SK", "Edit");
+
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                Log.d("SK", "Camera");
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+
+
+        });
 
         cancelButton.setOnClickListener(view -> {
             Log.d("SK", "Cancel");
@@ -115,5 +137,33 @@ public class ProfileActivity extends AppCompatActivity {
         return isValid;
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            // The image is captured; you can access it from the `data` intent
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            // Now you can save this `imageBitmap` to internal storage
+            saveImageToInternalStorage(imageBitmap);
+        }
+    }
+
+    private void saveImageToInternalStorage(Bitmap imageBitmap) {
+        try {
+            File dir = getDir("images", Context.MODE_PRIVATE); // Create a directory
+            File file = new File(dir, "profile_image.jpg"); // Specify the filename
+
+            FileOutputStream fos = new FileOutputStream(file);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+
+            // Now the image is saved in internal storage
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
