@@ -1,7 +1,5 @@
 package org.dci.walletapp;
 
-import android.os.Build;
-
 import java.time.LocalDateTime;
 
 public class Transaction {
