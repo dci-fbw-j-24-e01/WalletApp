@@ -25,6 +25,7 @@ public class Profile {
         this.profileImage = profileImage;
     }
 
+
     public String getProfileImage() {
         return profileImage;
     }
@@ -50,4 +51,6 @@ public class Profile {
     public int hashCode() {
         return Objects.hash(name, email, profileImage);
     }
+
+
 }
