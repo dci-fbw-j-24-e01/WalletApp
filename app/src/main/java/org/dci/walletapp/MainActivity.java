@@ -38,8 +38,5 @@ test();
         filesOperations.writeTransactions(this, list);
 
 
-
-
-//        filesOperations.writeTransaction(this, transaction1);
     }
 }

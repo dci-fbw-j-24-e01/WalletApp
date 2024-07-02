@@ -44,8 +44,8 @@ public class JsonFilesOperations {
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
         File file =  new File(directory, "transaction.json");
 
-        try (FileOutputStream fos = new FileOutputStream(file, true)) {
-            fos.write(mapper.writeValueAsString(transactionsList).getBytes());
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(mapper.writeValueAsBytes(transactionsList));
         }  catch (IOException e) {
             throw new RuntimeException(e);
         }
