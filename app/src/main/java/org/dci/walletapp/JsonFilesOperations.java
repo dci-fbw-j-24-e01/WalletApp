@@ -1,40 +1,40 @@
 package org.dci.walletapp;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class JsonFilesOperations {
+    private static JsonFilesOperations instance;
 
+    private JsonFilesOperations() {
 
-    public void write(Context context, Transaction transaction) {
+    }
+
+    public static JsonFilesOperations getInstance() {
+        if (instance == null) {
+            instance = new JsonFilesOperations();
+        }
+        return instance;
+    }
+
+    public void writeTransaction(Context context, Transaction transaction) {
         String data = convertTransaction(transaction).toString();
 
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
-
         File file =  new File(directory, "transaction.json");
 
-        FileOutputStream fos = null; // save
-        try {
-            fos = new FileOutputStream("transaction.json", true);
+        try (FileOutputStream fos = new FileOutputStream(file, true)) {
             fos.write(data.getBytes());
-            fos.close();
-
         }  catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     private JSONObject convertTransaction(Transaction transaction) {

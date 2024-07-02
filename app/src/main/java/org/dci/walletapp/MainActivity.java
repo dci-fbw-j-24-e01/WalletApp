@@ -25,8 +25,12 @@ test();
     }
 
     private void test() {
-        Transaction transaction = new Transaction(2.0, "Description", true, "whatever");
-        JsonFilesOperations filesOperations = new JsonFilesOperations();
-        filesOperations.write(this, transaction);
+        Transaction transaction = new Transaction(155.1, "Hello", true, "Goodbye");
+//        Transaction transaction1 = new Transaction(546.1, "new Description()", false, "testSource");
+        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+        filesOperations.writeTransaction(this, transaction);
+
+
+//        filesOperations.writeTransaction(this, transaction1);
     }
 }

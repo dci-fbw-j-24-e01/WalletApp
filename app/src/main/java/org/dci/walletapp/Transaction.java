@@ -16,9 +16,8 @@ public class Transaction {
         this.description = description;
         this.income = income;
         this.source = source;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            dateTime = LocalDateTime.now();
-        }
+
+        dateTime = LocalDateTime.now();
     }
 
     public Transaction(double amount, LocalDateTime dateTime, String description, boolean income, String source) {
