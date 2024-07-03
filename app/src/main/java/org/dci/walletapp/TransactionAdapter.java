@@ -3,6 +3,7 @@ package org.dci.walletapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
 
-    private final List<Transaction>  transactions;
+    private final List<Transaction> transactions;
 
     public TransactionAdapter(List<Transaction> transactions) {
         this.transactions = transactions;
@@ -28,11 +29,19 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
+        TextView amount = holder.getAmount();
+        TextView dateTime = holder.getDateTime();
+        TextView category = holder.getCategory();
+        TextView description = holder.getDescription();
+
+        Transaction transaction = transactions.get(position);
+
+        amount.setText(transactions.get());
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return transactions.size();
     }
 }
