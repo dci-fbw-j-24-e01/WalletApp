@@ -132,8 +132,20 @@ public class MainActivity extends AppCompatActivity {
     private void test() {
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
 
-        List<Transaction> list = filesOperations.readTransactions(this);
-        list.add(new Transaction(321.1, "Test Description", false, "Test"));
-        filesOperations.writeTransactions(this, list);
+        List<String> incomesCategorieslist = filesOperations.readCategories(this, true);
+        List<String> expencesCategorieslist = filesOperations.readCategories(this, false);
+
+        incomesCategorieslist.add("Salary");
+        incomesCategorieslist.add("Bonus");
+        incomesCategorieslist.add("Others");
+
+        expencesCategorieslist.add("Food");
+        expencesCategorieslist.add("Transport");
+        expencesCategorieslist.add("Entertainment");
+        expencesCategorieslist.add("House");
+        expencesCategorieslist.add("Children");
+        expencesCategorieslist.add("Others");
+
+        filesOperations.writeCategories(this, incomesCategorieslist, expencesCategorieslist);
     }
 }

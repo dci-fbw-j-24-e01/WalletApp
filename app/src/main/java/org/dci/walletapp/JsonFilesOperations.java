@@ -6,10 +6,15 @@ import android.util.Log;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -24,7 +29,7 @@ public class JsonFilesOperations {
 
     }
 
-    public static JsonFilesOperations getInstance() {
+    public static synchronized JsonFilesOperations getInstance() {
         if (instance == null) {
             instance = new JsonFilesOperations();
         }
@@ -56,13 +61,12 @@ public class JsonFilesOperations {
             JsonNode rootNode = new ObjectMapper().readTree(stream);
 
             for (JsonNode transaction : rootNode) {
-                Log.d("Testnode", transaction.toString());
                 transactionsList.add(new Transaction(
                         transaction.get("amount").asDouble(),
                         LocalDateTime.parse(transaction.get("dateTime").asText()),
                         transaction.get("description").asText(),
                         transaction.get("income").asBoolean(),
-                        transaction.get("source").asText()
+                        transaction.get("category").asText()
                 ));
             }
         } catch (IOException e) {
@@ -71,4 +75,39 @@ public class JsonFilesOperations {
         return transactionsList;
     }
 
+    public void writeCategories(Context context, List<String> incomesCategoriesList, List<String> expencesCategoriesList) {
+        ObjectMapper mapper = new ObjectMapper();
+        ContextWrapper contextWrapper = new ContextWrapper(context);
+        File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
+        File file =  new File(directory, "categories.json");
+        try (FileWriter writer = new FileWriter(file)) {
+            JSONObject root = new JSONObject();
+            root.put("incomesCategories", incomesCategoriesList);
+            root.put("expensesCategories", expencesCategoriesList);
+            writer.write(root.toString());
+        }  catch (IOException | JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> readCategories(Context context, boolean isIncome) {
+        ContextWrapper contextWrapper = new ContextWrapper(context);
+        File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
+        File file =  new File(directory, "categories.json");
+        List<String> categoriesList = new ArrayList<>();
+        try (InputStream stream = Files.newInputStream(file.toPath())) {
+            JsonNode categories;
+            if (isIncome) {
+                categories = new ObjectMapper().readTree(stream).get("incomesCategories");
+            } else {
+                categories = new ObjectMapper().readTree(stream).get("expensesCategories");
+            }
+            for (JsonNode category : categories) {
+                categoriesList.add(category.asText());
+            }
+        } catch (IOException e) {
+            return new ArrayList<String>();
+        }
+        return categoriesList;
+    }
 }

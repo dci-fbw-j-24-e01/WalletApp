@@ -6,24 +6,24 @@ public class Transaction {
     private boolean income;
     private double amount;
     private LocalDateTime dateTime;
-    private String source;
+    private String category;
     private String description;
 
-    public Transaction(double amount, String description, boolean income, String source) {
+    public Transaction(double amount, String description, boolean income, String category) {
         this.amount = amount;
         this.description = description;
         this.income = income;
-        this.source = source;
+        this.category = category;
 
         dateTime = LocalDateTime.now();
     }
 
-    public Transaction(double amount, LocalDateTime dateTime, String description, boolean income, String source) {
+    public Transaction(double amount, LocalDateTime dateTime, String description, boolean income, String category) {
         this.amount = amount;
         this.dateTime = dateTime;
         this.description = description;
         this.income = income;
-        this.source = source;
+        this.category = category;
     }
 
     public double getAmount() {
@@ -58,11 +58,11 @@ public class Transaction {
         this.income = income;
     }
 
-    public String getSource() {
-        return source;
+    public String getCategory() {
+        return category;
     }
 
-    public void setSource(String incomeSource) {
-        this.source = incomeSource;
+    public void setCategory(String incomeSource) {
+        this.category = incomeSource;
     }
 }
