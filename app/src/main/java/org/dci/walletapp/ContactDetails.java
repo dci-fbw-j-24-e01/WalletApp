@@ -19,6 +19,7 @@ private String companyFaxNumbers;
         return companyPhoneNumber;
     }
 
+
     public String getCompanyEmail() {
         return companyEmail;
     }
