@@ -30,7 +30,7 @@ public class QuestionsContainer {
         questionsList.add(new Question("Is this question useful?", "Of course :D not."));
         questionsList.add(new Question("What's your favorite color?", "Blue"));
         questionsList.add(new Question("Do you have any pets?", "Yes, a cat"));
-        questionsList.add(new Question("What's your favorite movie?", "Inception"));
+        questionsList.add(new Question("What's your favorite movie?", "Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception Inception "));
         questionsList.add(new Question("Can you cook?", "Barely"));
         questionsList.add(new Question("Do you like to travel?", "Absolutely"));
         questionsList.add(new Question("What's your hobby?", "Reading"));
