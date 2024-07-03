@@ -1,19 +1,132 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="fill_vertical"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    android:layout_marginHorizontal="10dp"
+    android:id="@+id/main"
+
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="20dp"
+            android:text="Welcome back!"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/currentBalanceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="60dp"
+            android:paddingBottom="20dp"
+            android:text="You have a balance of:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/currentBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Balance (Amount)"
+            android:textSize="50sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/addIncomeButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="16dp"
+            android:text="+"
+            android:textSize="30sp"
+            android:background="@drawable/circular_button_income"
+            />
+
+        <Button
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/addExpenseButton"
+            android:layout_marginStart="16dp"
+            android:text="-"
+            android:textSize="30sp"
+            android:background="@drawable/circular_button_expense"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/historyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="History"
+           android:backgroundTint="@color/dodger_blue"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/profileButton"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:text="Profile"
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnight_blue"
+            />
+
+        <Button
+            android:id="@+id/categoryManagementButton"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:text="Category Management"
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnight_blue"/>
+
+        <Button
+            android:id="@+id/supportButton"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:text="Support"
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnight_blue"/>
+    </LinearLayout>
+</LinearLayout>
