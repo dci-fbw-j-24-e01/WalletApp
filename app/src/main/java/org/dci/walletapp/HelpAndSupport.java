@@ -22,10 +22,11 @@ public class HelpAndSupport extends AppCompatActivity {
 
 
 TextView titleTextView;
+TextView contactDetailsTextView;
 
 RecyclerView listOfQuestions;
 
-
+ContactDetails contactDetails = new ContactDetails("Dummy Phone Number", "Dummy Email", "Dummy Fax Number");
 
 List<Question> questions = new QuestionsContainer().getQuestionsList();
 
@@ -42,6 +43,7 @@ List<Question> questions = new QuestionsContainer().getQuestionsList();
 
         titleTextView = findViewById(R.id.titleTextView);
         listOfQuestions = findViewById(R.id.listOfQuestions);
+        contactDetailsTextView = findViewById(R.id.contactDetailsTextView);
 
 listOfQuestions.setLayoutManager(new LinearLayoutManager(this));
 
@@ -55,6 +57,9 @@ listOfQuestions.setAdapter(helpAndSupportAdapter);
 
 
 titleTextView.setText("Help and support");
+contactDetailsTextView.setText("Contact Information: \n" + "\nPhone Number: " + contactDetails.getCompanyPhoneNumber() +
+        "\nEmail: " + contactDetails.getCompanyEmail() +
+        "\nFax Number: " + contactDetails.getCompanyFaxNumbers());
 
         setSeparatorLine();
 
