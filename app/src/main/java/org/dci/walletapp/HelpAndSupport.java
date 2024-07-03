@@ -25,7 +25,7 @@ TextView titleTextView;
 
 RecyclerView listOfQuestions;
 
-String dummyText;
+
 
 List<Question> questions = new QuestionsContainer().getQuestionsList();
 
