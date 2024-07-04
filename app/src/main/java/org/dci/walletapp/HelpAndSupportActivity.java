@@ -2,7 +2,6 @@ package org.dci.walletapp;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,10 +14,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HelpAndSupport extends AppCompatActivity {
+public class HelpAndSupportActivity extends AppCompatActivity {
 
 
 TextView titleTextView;
