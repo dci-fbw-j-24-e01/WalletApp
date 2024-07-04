@@ -29,14 +29,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-        TextView amount = holder.getAmount();
-        TextView dateTime = holder.getDateTime();
-        TextView category = holder.getCategory();
-        TextView description = holder.getDescription();
+
 
         Transaction transaction = transactions.get(position);
 
-        amount.setText(transactions.get());
+        holder.getAmount().setText(transaction.getFormattedAmount());
+        holder.getDateTime().setText(transaction.getDateTime());
+        holder.getCategory().setText(transaction.getCategory());
+        holder.getDescription().setText(transaction.getDescription());
 
     }
 
