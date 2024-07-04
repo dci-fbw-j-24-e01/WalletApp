@@ -1,7 +1,6 @@
 package org.dci.walletapp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -118,13 +117,10 @@ public class MainActivity extends AppCompatActivity {
         });
         supportButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
-            intent.putExtra("DummyText", "Suport Screen!");
+            Intent intent = new Intent(MainActivity.this, HelpAndSupportActivity.class);
             startActivity(intent);
 
-
         });
-
 
         test();
     }
