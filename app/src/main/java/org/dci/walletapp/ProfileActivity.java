@@ -83,6 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
         goBackButton = findViewById(R.id.backButton);
         editImageButton = findViewById(R.id.editImageButton);
 
+        // Autofill suggestion to the user for name and email if previously typed on your phone
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             nameEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
             emailEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
