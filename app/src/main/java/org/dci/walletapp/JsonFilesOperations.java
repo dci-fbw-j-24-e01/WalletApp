@@ -1,12 +1,10 @@
 package org.dci.walletapp;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
 import org.json.JSONException;
@@ -75,15 +73,14 @@ public class JsonFilesOperations {
         return transactionsList;
     }
 
-    public void writeCategories(Context context, List<String> incomesCategoriesList, List<String> expencesCategoriesList) {
-        ObjectMapper mapper = new ObjectMapper();
+    public void writeCategories(Context context, List<String> incomesCategoriesList, List<String> expensesCategoriesList) {
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
         File file =  new File(directory, "categories.json");
         try (FileWriter writer = new FileWriter(file)) {
             JSONObject root = new JSONObject();
             root.put("incomesCategories", incomesCategoriesList);
-            root.put("expensesCategories", expencesCategoriesList);
+            root.put("expensesCategories", expensesCategoriesList);
             writer.write(root.toString());
         }  catch (IOException | JSONException e) {
             throw new RuntimeException(e);
