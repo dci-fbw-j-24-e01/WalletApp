@@ -1,13 +1,9 @@
 package org.dci.walletapp;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -38,7 +34,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
         holder.getIncomeTextView().setText(String.valueOf(transactionList.get(position).isIncome()));
 
 
-
     }
 
     @Override
@@ -47,4 +42,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
     }
 
 
+    public void updateTransactions(List<Transaction> filteredTransactions) {
+        transactionList.clear();
+        transactionList.addAll(filteredTransactions);
+        notifyDataSetChanged();
+    }
 }

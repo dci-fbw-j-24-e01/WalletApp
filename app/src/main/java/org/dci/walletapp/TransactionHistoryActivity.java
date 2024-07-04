@@ -1,6 +1,5 @@
 package org.dci.walletapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,17 +7,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -32,6 +27,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
     RecyclerView listOfTransactions;
 
+    List<Transaction> transactionList;
+    TransactionAdapter transactionAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,59 +41,87 @@ public class TransactionHistoryActivity extends AppCompatActivity {
             return insets;
         });
 
-        titleTransactionHistory = findViewById(R.id.titleTransactionHistory);
-        spinnerTransactionsCategory = findViewById(R.id.spinnerTransactionsCategory);
-        listOfTransactions = findViewById(R.id.listOfTransactions);
-
-
-        //write to Transaction.JSON file (Just for development purpose)
-
-//        [{"amount":321.1,"dateTime":"2024-07-02T15:14:00.639424","description":"Test Description",
-//                "income":false,"source":"Test"},{"amount":321.1,"dateTime":"2024-07-02T15:14:19.317111",
-//                "description":"Test Description","income":false,"source":"Test"}]
+        initializeViews();
+        setupRecyclerView();
+        setupSpinner();
 
 //        testToWriteDataInJSON();
-
-
-
-
-        List<String> transactionCategories = new ArrayList<>();
-
-        transactionCategories.add(0, "All");
-        transactionCategories.add(1, "Incomes");
-        transactionCategories.add(2, "Expenses");
-
-        ArrayAdapter<String> transactionArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, transactionCategories);
-        spinnerTransactionsCategory.setAdapter(transactionArrayAdapter);
-
-        List<Transaction> transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-        Log.d("SK",transactionList.size()+"");
-        TransactionAdapter transactionAdapter = new TransactionAdapter(transactionList);
-        listOfTransactions.setLayoutManager(new LinearLayoutManager(this));
-        listOfTransactions.setAdapter(transactionAdapter);
-
 
 //        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(listOfTransactions.getContext(),
 //                new LinearLayoutManager(this).getOrientation());
 //        listOfTransactions.addItemDecoration(dividerItemDecoration);
 
+    }
 
+    private void setupSpinner() {
+
+        List<String> transactionCategories = new ArrayList<>();
+        transactionCategories.add("All");
+        transactionCategories.add("Incomes");
+        transactionCategories.add("Expenses");
+
+        ArrayAdapter<String> transactionArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, transactionCategories);
+        spinnerTransactionsCategory.setAdapter(transactionArrayAdapter);
         spinnerTransactionsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                fetchTransactionsByCategory(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
     }
 
-    private void testToWriteDataInJSON() {
-        List<Transaction> transactions = new ArrayList<>();
+    private void setupRecyclerView() {
+        transactionList = JsonFilesOperations.getInstance().readTransactions(this);
+        transactionAdapter = new TransactionAdapter(transactionList);
+        listOfTransactions.setLayoutManager(new LinearLayoutManager(this));
+        listOfTransactions.setAdapter(transactionAdapter);
+    }
 
+    private void initializeViews() {
+        titleTransactionHistory = findViewById(R.id.titleTransactionHistory);
+        spinnerTransactionsCategory = findViewById(R.id.spinnerTransactionsCategory);
+        listOfTransactions = findViewById(R.id.listOfTransactions);
+    }
+
+    private void fetchTransactionsByCategory(int position) {
+
+
+        List<Transaction> filteredTransactions;
+        switch (position) {
+            case 1:
+                filteredTransactions = getTransactionsByType(true);
+                break;
+            case 2:
+                filteredTransactions = getTransactionsByType(false);
+                break;
+            default:
+                filteredTransactions = JsonFilesOperations.getInstance().readTransactions(this);
+                break;
+        }
+
+        transactionAdapter.updateTransactions(filteredTransactions);
+        transactionList = JsonFilesOperations.getInstance().readTransactions(this);
+    }
+
+    private List<Transaction> getTransactionsByType(boolean isIncome) {
+        List<Transaction> filteredTransactions = new ArrayList<>();
+        for (Transaction transaction : transactionList) {
+            if (transaction.isIncome() == isIncome) {
+                filteredTransactions.add(transaction);
+            }
+        }
+        Log.d("SK", filteredTransactions.size()+"");
+        return filteredTransactions;
+    }
+
+
+    private void testToWriteDataInJSON() {
+
+        List<Transaction> transactions = new ArrayList<>();
         String dateTimeString = "2024-07-02T15:14:00.639424";
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
@@ -129,8 +155,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         transactions.add(transaction2);
         transactions.add(transaction3);
         transactions.add(transaction4);
-
-
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
         filesOperations.writeTransactions(this, transactions);
     }
