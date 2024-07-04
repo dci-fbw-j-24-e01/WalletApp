@@ -88,8 +88,8 @@ public class ProfileActivity extends AppCompatActivity {
             emailEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
         }
 
-        editTextChangedListener(nameEditText, saveButton, cancelButton, goBackButton, editImageButton);
-        editTextChangedListener(emailEditText, saveButton, cancelButton, goBackButton, editImageButton);
+        editTextChangedListener(nameEditText);
+        editTextChangedListener(emailEditText);
 
         profile = readProfileFromJSON(this);
 
@@ -172,7 +172,7 @@ public class ProfileActivity extends AppCompatActivity {
         editText.setError(errorMessage);
     }
 
-    private void editTextChangedListener(EditText editText, Button saveButton, Button cancelButton, Button backButton, Button editImageButton) {
+    private void editTextChangedListener(EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
 
             @Override
