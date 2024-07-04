@@ -34,7 +34,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
         Transaction transaction = transactions.get(position);
 
         holder.getAmount().setText(transaction.getFormattedAmount());
-        holder.getDateTime().setText(transaction.getDateTime());
+        holder.getDateTime().setText(transaction.getDateTime().toString());
         holder.getCategory().setText(transaction.getCategory());
         holder.getDescription().setText(transaction.getDescription());
 
