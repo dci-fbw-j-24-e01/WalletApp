@@ -23,7 +23,7 @@ public class DummyActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+//
 
         dummyTextView = findViewById(R.id.dummyTextView);
         dummyTextView.setText(getIntent().getStringExtra("DummyText"));
