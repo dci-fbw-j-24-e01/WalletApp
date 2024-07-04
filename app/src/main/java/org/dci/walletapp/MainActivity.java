@@ -32,10 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private final String userName = "WalletUser";
     private double currentBalanceEuro = 16180.33;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-      
+
         addIncomeButton = findViewById(R.id.addIncomeButton);
         addExpenseButton = findViewById(R.id.addExpenseButton);
         profileButton = findViewById(R.id.profileButton);
@@ -59,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         currentBalanceText = findViewById(R.id.currentBalanceText);
         currentBalance = findViewById(R.id.currentBalance);
 
-        welcomeTextView.setText("Welcome back, " + userName +"!");
+        welcomeTextView.setText("Welcome back, " + userName + "!");
         currentBalanceText.setText("You have a balance of:");
 
 
@@ -78,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, DummyActivity.class);
             intent.putExtra("DummyText", "Income Screen!");
             startActivity(intent);
-
 
 
         });
@@ -101,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
         });
         profileButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
-            intent.putExtra("DummyText", "Profile Screen!");
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
 
 
