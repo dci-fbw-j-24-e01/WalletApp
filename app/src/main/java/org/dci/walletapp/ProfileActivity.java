@@ -206,7 +206,7 @@ public class ProfileActivity extends AppCompatActivity {
             setEditTextInputError(nameEditText, "Name is required");
             return false;
         }
-        if (name.length() < 3) {
+        if (name.length() < 2) {
             setEditTextInputError(nameEditText, "Name length should have at least 2 characters");
             return false;
         }
