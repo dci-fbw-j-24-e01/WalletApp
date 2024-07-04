@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         addIncomeButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
-            intent.putExtra("DummyText", "Income Screen!");
+            Intent intent = new Intent(MainActivity.this, IncomeActivity.class);
             startActivity(intent);
 
 

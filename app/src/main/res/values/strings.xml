@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WalletApp</string>
+    <string name="new_income">New Income</string>
+    <string name="description">Description: ...</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="go_back">Go Back</string>
+    <string name="date_hint">Select a date</string>
 </resources>
