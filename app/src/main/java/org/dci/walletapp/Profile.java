@@ -1,12 +1,16 @@
 package org.dci.walletapp;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class Profile {
-    private final String name;
-    private final String email;
-
+    private String name;
+    private String email;
     private String profileImage;
+
+    public Profile() {
+    }
 
     public Profile(String name, String email) {
         this.name = name;
@@ -21,15 +25,23 @@ public class Profile {
         return email;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
-
 
     public String getProfileImage() {
         return profileImage;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Profile{" +
@@ -51,6 +63,5 @@ public class Profile {
     public int hashCode() {
         return Objects.hash(name, email, profileImage);
     }
-
 
 }

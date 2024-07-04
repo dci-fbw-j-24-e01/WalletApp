@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#808080</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="deep_space_sparkle">#546E7A</color>
 </resources>
