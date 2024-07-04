@@ -2,6 +2,7 @@ package org.dci.walletapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+      
         addIncomeButton = findViewById(R.id.addIncomeButton);
         addExpenseButton = findViewById(R.id.addExpenseButton);
         profileButton = findViewById(R.id.profileButton);
@@ -70,11 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
         addIncomeButton.setBackgroundTintList(null);
         addExpenseButton.setBackgroundTintList(null);
-
-
-
-
-
 
         addIncomeButton.setOnClickListener((view) -> {
 
@@ -125,5 +122,26 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        test();
+    }
+
+    private void test() {
+        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+
+        List<String> incomesCategorieslist = filesOperations.readCategories(this, true);
+        List<String> expencesCategorieslist = filesOperations.readCategories(this, false);
+
+        incomesCategorieslist.add("Salary");
+        incomesCategorieslist.add("Bonus");
+        incomesCategorieslist.add("Others");
+
+        expencesCategorieslist.add("Food");
+        expencesCategorieslist.add("Transport");
+        expencesCategorieslist.add("Entertainment");
+        expencesCategorieslist.add("House");
+        expencesCategorieslist.add("Children");
+        expencesCategorieslist.add("Others");
+
+        filesOperations.writeCategories(this, incomesCategorieslist, expencesCategorieslist);
     }
 }
