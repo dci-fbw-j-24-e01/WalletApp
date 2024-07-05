@@ -1,10 +1,13 @@
 package org.dci.walletapp;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,6 +71,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         holder.imageEdit.setOnClickListener(v -> {
             EditText input = new EditText(context);
             input.setText(categoriesList.get(position));
+            input.setSelectAllOnFocus(true);
 
             AlertDialog alertDialog = new AlertDialog.Builder(context)
                     .setTitle("Edit Category name")
@@ -78,8 +82,9 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
                         notifyItemRangeChanged(position, categoriesList.size());
                     })
                     .setNegativeButton(android.R.string.no, null).show();
-            alertDialog.setOnShowListener(dialog -> input.selectAll());
             alertDialog.show();
+
+            input.requestFocus();
         });
 
     }

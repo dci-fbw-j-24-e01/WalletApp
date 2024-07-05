@@ -53,6 +53,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="text"
+            android:selectAllOnFocus="true"
             android:text="Category" />
 
         <ImageView
