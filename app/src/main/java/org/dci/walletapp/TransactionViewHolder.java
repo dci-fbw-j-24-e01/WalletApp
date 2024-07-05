@@ -47,4 +47,12 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder {
     public TextView getIncomeTextView() {
         return incomeTextView;
     }
+
+    public Button getEditTransactionButton() {
+        return editTransactionButton;
+    }
+
+    public Button getDeleteTransactionButton() {
+        return deleteTransactionButton;
+    }
 }

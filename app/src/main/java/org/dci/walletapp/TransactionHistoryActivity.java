@@ -1,15 +1,20 @@
 package org.dci.walletapp;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -29,6 +34,8 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     Spinner spinnerTransactionsCategory;
 
     RecyclerView listOfTransactions;
+
+    SwitchCompat editOrDeleteSwitch;
 
     List<Transaction> transactionList;
     TransactionAdapter transactionAdapter;
@@ -83,7 +90,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-        transactionAdapter = new TransactionAdapter(transactionList);
+        transactionAdapter = new TransactionAdapter(this, transactionList,editOrDeleteSwitch);
         listOfTransactions.setLayoutManager(new LinearLayoutManager(this));
         listOfTransactions.setAdapter(transactionAdapter);
     }
@@ -91,7 +98,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     private void initializeViews() {
         titleTransactionHistory = findViewById(R.id.titleTransactionHistory);
         spinnerTransactionsCategory = findViewById(R.id.spinnerTransactionsCategory);
+        editOrDeleteSwitch = findViewById(R.id.editOrDeleteSwitch);
         listOfTransactions = findViewById(R.id.listOfTransactions);
+
     }
 
     private void fetchTransactionsByCategory(int position) {
@@ -124,6 +133,20 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         Log.d("SK", filteredTransactions.size()+"");
         return filteredTransactions;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            // Refresh your transactions here...
+            spinnerTransactionsCategory.setSelection(0);
+            fetchTransactionsByCategory(0);// This method should reload the transaction list
+
+
+        }
+    }
+
+
 
 
 //    private void testToWriteDataInJSON() {
