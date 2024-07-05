@@ -1,5 +1,6 @@
 package org.dci.walletapp;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDateTime;
@@ -47,9 +50,13 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
 //        testToWriteDataInJSON();
 
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(listOfTransactions.getContext(),
-//                new LinearLayoutManager(this).getOrientation());
-//        listOfTransactions.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(listOfTransactions.getContext(),
+                LinearLayoutManager.VERTICAL);
+        Drawable dividerDrawable = ContextCompat.getDrawable(this, R.drawable.custom_divider);
+        if (dividerDrawable != null) {
+            dividerItemDecoration.setDrawable(dividerDrawable);
+        }
+        listOfTransactions.addItemDecoration(dividerItemDecoration);
 
     }
 

@@ -13,7 +13,7 @@
         android:id="@+id/titleTransactionHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:layout_marginBottom="5dp"
         android:gravity="center"
         android:text="View Transaction History"
