@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -27,10 +28,18 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-        holder.getAmountTextView().setText(String.valueOf(transactionList.get(position).getAmount()));
-        holder.getDateTimeTextView().setText(String.valueOf(transactionList.get(position).getDateTime()));
-        holder.getDescriptionTextView().setText(transactionList.get(position).getDescription());
-        holder.getCategoryTextView().setText(transactionList.get(position).getCategory());
+       if(transactionList.get(position).isIncome()){
+           holder.getAmountTextView().setText("Amount: "+String.valueOf(transactionList.get(position).getAmount()));
+           holder.getAmountTextView().setTextColor(holder.itemView.getResources().getColor(R.color.dark_olive_green));
+       }else{
+           holder.getAmountTextView().setText("Amount: "+String.valueOf(transactionList.get(position).getAmount()));
+           holder.getAmountTextView().setTextColor(holder.itemView.getResources().getColor(R.color.maroon));
+       }
+
+
+        holder.getDateTimeTextView().setText("Date Time: "+String.valueOf(transactionList.get(position).getDateTime()));
+        holder.getDescriptionTextView().setText("Description: "+transactionList.get(position).getDescription());
+        holder.getCategoryTextView().setText("Category: "+transactionList.get(position).getCategory());
         holder.getIncomeTextView().setText(String.valueOf(transactionList.get(position).isIncome()));
 
 
