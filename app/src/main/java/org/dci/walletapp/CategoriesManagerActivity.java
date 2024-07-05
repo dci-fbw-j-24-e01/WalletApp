@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesManagerActivity extends AppCompatActivity {
@@ -55,8 +56,17 @@ public class CategoriesManagerActivity extends AppCompatActivity {
         addCategoryImage = findViewById(R.id.addCategoryImage);
         inputCategory = findViewById(R.id.inputCategory);
 
+        /////////////
+        List<String> catList = new ArrayList<>();
+        catList.add("11111111");
+        catList.add("22222222");
+        catList.add("33333333");
+        catList.add("44444444");
+        categoriesList.setAdapter(new CategoriesListAdapter(this, catList));
+        /////////////
+
         categoriesList.setLayoutManager(new LinearLayoutManager(this));
-        setRecyclerViewAdapter();
+        //setRecyclerViewAdapter();
     }
 
     public void setRecyclerViewAdapter() {
