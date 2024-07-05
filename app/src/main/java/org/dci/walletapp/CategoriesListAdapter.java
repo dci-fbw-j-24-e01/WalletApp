@@ -53,7 +53,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         holder.imageDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                deleteCategory(holder.getAdapterPosition());
             }
         });
     }

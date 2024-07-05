@@ -1,7 +1,8 @@
 package org.dci.walletapp;
 
 import android.os.Bundle;
-import android.widget.Button;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -56,17 +57,29 @@ public class CategoriesManagerActivity extends AppCompatActivity {
         addCategoryImage = findViewById(R.id.addCategoryImage);
         inputCategory = findViewById(R.id.inputCategory);
 
-        /////////////
-        List<String> catList = new ArrayList<>();
-        catList.add("11111111");
-        catList.add("22222222");
-        catList.add("33333333");
-        catList.add("44444444");
-        categoriesList.setAdapter(new CategoriesListAdapter(this, catList));
-        /////////////
+
+        categoriesList.setAdapter(new CategoriesListAdapter(this, expensesCategories));
 
         categoriesList.setLayoutManager(new LinearLayoutManager(this));
-        //setRecyclerViewAdapter();
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                setRecyclerViewAdapter();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        setRecyclerViewAdapter();
+
+
     }
 
     public void setRecyclerViewAdapter() {

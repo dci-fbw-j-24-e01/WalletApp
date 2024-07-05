@@ -128,16 +128,16 @@ public class MainActivity extends AppCompatActivity {
         List<String> incomesCategorieslist = filesOperations.readCategories(this, true);
         List<String> expencesCategorieslist = filesOperations.readCategories(this, false);
 
-        incomesCategorieslist.add("Salary");
-        incomesCategorieslist.add("Bonus");
-        incomesCategorieslist.add("Others");
-
-        expencesCategorieslist.add("Food");
-        expencesCategorieslist.add("Transport");
-        expencesCategorieslist.add("Entertainment");
-        expencesCategorieslist.add("House");
-        expencesCategorieslist.add("Children");
-        expencesCategorieslist.add("Others");
+//        incomesCategorieslist.add("Salary");
+//        incomesCategorieslist.add("Bonus");
+//        incomesCategorieslist.add("Others");
+//
+//        expencesCategorieslist.add("Food");
+//        expencesCategorieslist.add("Transport");
+//        expencesCategorieslist.add("Entertainment");
+//        expencesCategorieslist.add("House");
+//        expencesCategorieslist.add("Children");
+//        expencesCategorieslist.add("Others");
 
         filesOperations.writeCategories(this, incomesCategorieslist, expencesCategorieslist);
     }

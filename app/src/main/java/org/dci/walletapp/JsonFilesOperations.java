@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -76,14 +77,14 @@ public class JsonFilesOperations {
     }
 
     public void writeCategories(Context context, List<String> incomesCategoriesList, List<String> expencesCategoriesList) {
-        ObjectMapper mapper = new ObjectMapper();
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
         File file =  new File(directory, "categories.json");
-        try (FileWriter writer = new FileWriter(file)) {
+
+        try (FileWriter writer = new FileWriter(file, false)) {
             JSONObject root = new JSONObject();
-            root.put("incomesCategories", incomesCategoriesList);
-            root.put("expensesCategories", expencesCategoriesList);
+            root.put("incomesCategories", new JSONArray(incomesCategoriesList));
+            root.put("expensesCategories", new JSONArray(expencesCategoriesList));
             writer.write(root.toString());
         }  catch (IOException | JSONException e) {
             throw new RuntimeException(e);
@@ -102,7 +103,9 @@ public class JsonFilesOperations {
             } else {
                 categories = new ObjectMapper().readTree(stream).get("expensesCategories");
             }
+
             for (JsonNode category : categories) {
+                Log.d("CategoryTest", categories.asText());
                 categoriesList.add(category.asText());
             }
         } catch (IOException e) {
