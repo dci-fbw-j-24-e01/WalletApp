@@ -49,8 +49,8 @@ public class CategoriesManagerActivity extends AppCompatActivity {
         });
 
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-        incomesCategories = filesOperations.readCategories(this, true);
-        expensesCategories = filesOperations.readCategories(this, false);
+        filesOperations.readCategories(this, true);
+        filesOperations.readCategories(this, false);
 
         tabLayout = findViewById(R.id.tabLayout);
         categoriesList = findViewById(R.id.categoriesList);

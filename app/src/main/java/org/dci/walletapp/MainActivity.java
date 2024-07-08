@@ -35,9 +35,25 @@ public class MainActivity extends AppCompatActivity {
     private final String userName = "WalletUser";
     private double currentBalanceEuro = 16180.33;
 
+    private static List<String> incomesCategorieslist;
+    private static List<String> expensesCategorieslist;
+
+    public static List<String> getExpensesCategorieslist() {
+        return expensesCategorieslist;
+    }
+
+    public static List<String> getIncomesCategorieslist() {
+        return incomesCategorieslist;
+    }
 
 
+    public static void setExpensesCategorieslist(List<String> expencesCategorieslist) {
+        MainActivity.expensesCategorieslist = expencesCategorieslist;
+    }
 
+    public static void setIncomesCategorieslist(List<String> incomesCategorieslist) {
+        MainActivity.incomesCategorieslist = incomesCategorieslist;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,27 +134,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
-
-        test();
-    }
-
-    private void test() {
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
 
-        List<String> incomesCategorieslist = filesOperations.readCategories(this, true);
-        List<String> expencesCategorieslist = filesOperations.readCategories(this, false);
-
-//        incomesCategorieslist.add("Salary");
-//        incomesCategorieslist.add("Bonus");
-//        incomesCategorieslist.add("Others");
-//
-//        expencesCategorieslist.add("Food");
-//        expencesCategorieslist.add("Transport");
-//        expencesCategorieslist.add("Entertainment");
-//        expencesCategorieslist.add("House");
-//        expencesCategorieslist.add("Children");
-//        expencesCategorieslist.add("Others");
-
-        filesOperations.writeCategories(this, incomesCategorieslist, expencesCategorieslist);
+        filesOperations.readCategories(this, true);
+        filesOperations.readCategories(this, false);
     }
+
 }

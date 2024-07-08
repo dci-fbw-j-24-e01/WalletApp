@@ -6,7 +6,6 @@ import android.util.Log;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
 import org.json.JSONArray;
@@ -76,26 +75,33 @@ public class JsonFilesOperations {
         return transactionsList;
     }
 
-    public void writeCategories(Context context, List<String> incomesCategoriesList, List<String> expencesCategoriesList) {
+    public void writeCategories(Context context) {
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
         File file =  new File(directory, "categories.json");
 
-        try (FileWriter writer = new FileWriter(file, false)) {
-            JSONObject root = new JSONObject();
-            root.put("incomesCategories", new JSONArray(incomesCategoriesList));
-            root.put("expensesCategories", new JSONArray(expencesCategoriesList));
-            writer.write(root.toString());
+        try (FileWriter writer = new FileWriter(file)) {
+            JSONObject rootNode = new JSONObject();
+            rootNode.put("incomesCategories", new JSONArray(MainActivity.getIncomesCategorieslist()));
+            rootNode.put("expensesCategories", new JSONArray(MainActivity.getExpensesCategorieslist()));
+            writer.write(rootNode.toString());
         }  catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public List<String> readCategories(Context context, boolean isIncome) {
+    public void readCategories(Context context, boolean isIncome) {
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
         File file =  new File(directory, "categories.json");
-        List<String> categoriesList = new ArrayList<>();
+        if (!file.exists()) {
+            MainActivity.setIncomesCategorieslist(List.of("Salary", "Bonus", "Others"));
+            MainActivity.setExpensesCategorieslist(List.of("Food", "Transport", "Entertainment",
+                    "House", "Children", "Others"));
+            writeCategories(context);
+            return;
+        }
+
         try (InputStream stream = Files.newInputStream(file.toPath())) {
             JsonNode categories;
             if (isIncome) {
@@ -105,12 +111,14 @@ public class JsonFilesOperations {
             }
 
             for (JsonNode category : categories) {
-                Log.d("CategoryTest", categories.asText());
-                categoriesList.add(category.asText());
+                if (isIncome) {
+                    MainActivity.getIncomesCategorieslist().add(category.asText());
+                } else {
+                    MainActivity.getExpensesCategorieslist().add(category.asText());
+                }
             }
         } catch (IOException e) {
-            return new ArrayList<String>();
+            Log.d("Categories file read was failed", e.toString());
         }
-        return categoriesList;
     }
 }

@@ -97,16 +97,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     private void deleteCategory(int position) {
         categoriesList.remove(position);
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-        filesOperations.writeCategories(context, CategoriesManagerActivity.getIncomesCategories(),
-                CategoriesManagerActivity.getExpensesCategories());
+        filesOperations.writeCategories(context);
         context.setRecyclerViewAdapter();
     }
 
     private void editCategory(int position, String newValue) {
         categoriesList.set(position, newValue);
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-        filesOperations.writeCategories(context, CategoriesManagerActivity.getIncomesCategories(),
-                CategoriesManagerActivity.getExpensesCategories());
+        filesOperations.writeCategories(context);
         context.setRecyclerViewAdapter();
     }
 }
