@@ -3,6 +3,11 @@
     <style name="Base.Theme.WalletApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+   <!--For testing purposes:-->
+    <!--<item name="android:windowBackground">@color/yellow</item>-->
+
+
     </style>
 
     <style name="Theme.WalletApp" parent="Base.Theme.WalletApp" />
