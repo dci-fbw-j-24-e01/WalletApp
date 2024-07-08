@@ -4,11 +4,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:layout_marginTop="10dp"
 
     tools:context=".TransactionItemView">
+<LinearLayout
 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/amountTextView"
         android:layout_width="wrap_content"
@@ -50,12 +55,16 @@
         android:textColor="#4CAF50"
         android:visibility="invisible" />
 
+</LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:gravity="end"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        >
 
         <Button
             android:id="@+id/editTransactionButton"

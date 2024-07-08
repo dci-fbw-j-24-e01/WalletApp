@@ -140,43 +140,43 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         }
     }
 
-    private void testToWriteDataInJSON() {
-
-        List<Transaction> transactions = new ArrayList<>();
-        String date = "2024-03-05";
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-
-        Transaction transaction = new Transaction(321.1,
-                LocalDate.parse(date, formatter),
-                "Test Description",
-                false,
-                "Test");
-        Transaction transaction1 = new Transaction(321.1,
-                LocalDate.parse(date, formatter),
-                "Test Description",
-                false,
-                "Test");
-        Transaction transaction2 = new Transaction(321.1,
-                LocalDate.parse(date, formatter),
-                "Test Description",
-                true,
-                "Test");
-        Transaction transaction3 = new Transaction(321.1,
-                LocalDate.parse(date, formatter),
-                "Test Description",
-                false,
-                "Test");
-        Transaction transaction4 = new Transaction(321.1,
-                LocalDate.parse(date, formatter),
-                "Test Description",
-                true,
-                "Test");
-        transactions.add(transaction);
-        transactions.add(transaction1);
-        transactions.add(transaction2);
-        transactions.add(transaction3);
-        transactions.add(transaction4);
-        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-        filesOperations.writeTransactions(this, transactions);
-    }
+//    private void testToWriteDataInJSON() {
+//
+//        List<Transaction> transactions = new ArrayList<>();
+//        String date = "2024-03-05";
+//        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+//
+//        Transaction transaction = new Transaction(321.1,
+//                LocalDate.parse(date, formatter),
+//                "Test Description",
+//                false,
+//                "Test");
+//        Transaction transaction1 = new Transaction(321.1,
+//                LocalDate.parse(date, formatter),
+//                "Test Description",
+//                false,
+//                "Test");
+//        Transaction transaction2 = new Transaction(321.1,
+//                LocalDate.parse(date, formatter),
+//                "Test Description",
+//                true,
+//                "Test");
+//        Transaction transaction3 = new Transaction(321.1,
+//                LocalDate.parse(date, formatter),
+//                "Test Description",
+//                false,
+//                "Test");
+//        Transaction transaction4 = new Transaction(321.1,
+//                LocalDate.parse(date, formatter),
+//                "Test Description",
+//                true,
+//                "Test");
+//        transactions.add(transaction);
+//        transactions.add(transaction1);
+//        transactions.add(transaction2);
+//        transactions.add(transaction3);
+//        transactions.add(transaction4);
+//        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+//        filesOperations.writeTransactions(this, transactions);
+//    }
 }
