@@ -3,12 +3,10 @@ package org.dci.walletapp;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,19 +18,19 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionHistoryActivity extends AppCompatActivity {
 
-    TextView titleTransactionHistory;
-    Spinner spinnerTransactionsCategory;
-    RecyclerView listOfTransactions;
-    SwitchCompat editOrDeleteSwitch;
-    List<Transaction> transactionList;
-    TransactionAdapter transactionAdapter;
+    private Spinner spinnerTransactionsCategory;
+    private RecyclerView listOfTransactions;
+    private SwitchCompat editOrDeleteSwitch;
+    private List<Transaction> transactionList;
+    private TransactionAdapter transactionAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +46,11 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         initializeViews();
         setupRecyclerView();
         setupSpinner();
+        lineDividerBetweenTransactions();
+//      testToWriteDataInJSON();
+    }
 
-//        testToWriteDataInJSON();
-
+    private void lineDividerBetweenTransactions() {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(listOfTransactions.getContext(),
                 LinearLayoutManager.VERTICAL);
         Drawable dividerDrawable = ContextCompat.getDrawable(this, R.drawable.custom_divider);
@@ -89,7 +89,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        titleTransactionHistory = findViewById(R.id.titleTransactionHistory);
         spinnerTransactionsCategory = findViewById(R.id.spinnerTransactionsCategory);
         editOrDeleteSwitch = findViewById(R.id.editOrDeleteSwitch);
         listOfTransactions = findViewById(R.id.listOfTransactions);
@@ -115,7 +114,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
             transactionList = JsonFilesOperations.getInstance().readTransactions(this);
         } else {
             editOrDeleteSwitch.setVisibility(View.INVISIBLE);
-            Toast.makeText(this, "NoTransactions", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Transactions", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -126,7 +125,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 filteredTransactions.add(transaction);
             }
         }
-        Log.d("SK", filteredTransactions.size() + "");
         return filteredTransactions;
     }
 
@@ -140,43 +138,44 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         }
     }
 
-//    private void testToWriteDataInJSON() {
-//
-//        List<Transaction> transactions = new ArrayList<>();
-//        String date = "2024-03-05";
-//        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-//
-//        Transaction transaction = new Transaction(321.1,
-//                LocalDate.parse(date, formatter),
-//                "Test Description",
-//                false,
-//                "Test");
-//        Transaction transaction1 = new Transaction(321.1,
-//                LocalDate.parse(date, formatter),
-//                "Test Description",
-//                false,
-//                "Test");
-//        Transaction transaction2 = new Transaction(321.1,
-//                LocalDate.parse(date, formatter),
-//                "Test Description",
-//                true,
-//                "Test");
-//        Transaction transaction3 = new Transaction(321.1,
-//                LocalDate.parse(date, formatter),
-//                "Test Description",
-//                false,
-//                "Test");
-//        Transaction transaction4 = new Transaction(321.1,
-//                LocalDate.parse(date, formatter),
-//                "Test Description",
-//                true,
-//                "Test");
-//        transactions.add(transaction);
-//        transactions.add(transaction1);
-//        transactions.add(transaction2);
-//        transactions.add(transaction3);
-//        transactions.add(transaction4);
-//        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-//        filesOperations.writeTransactions(this, transactions);
-//    }
+
+    private void testToWriteDataInJSON() {
+
+        List<Transaction> transactions = new ArrayList<>();
+        String dateTimeString = "2024-07-02T15:14:00.639424";
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+        Transaction transaction = new Transaction(321.1,
+                LocalDateTime.parse(dateTimeString, formatter),
+                "Test Description",
+                false,
+                "Test");
+        Transaction transaction1 = new Transaction(321.1,
+                LocalDateTime.parse(dateTimeString, formatter),
+                "Test Description",
+                false,
+                "Test");
+        Transaction transaction2 = new Transaction(321.1,
+                LocalDateTime.parse(dateTimeString, formatter),
+                "Test Description",
+                true,
+                "Test");
+        Transaction transaction3 = new Transaction(321.1,
+                LocalDateTime.parse(dateTimeString, formatter),
+                "Test Description",
+                false,
+                "Test");
+        Transaction transaction4 = new Transaction(321.1,
+                LocalDateTime.parse(dateTimeString, formatter),
+                "Test Description",
+                true,
+                "Test");
+        transactions.add(transaction);
+        transactions.add(transaction1);
+        transactions.add(transaction2);
+        transactions.add(transaction3);
+        transactions.add(transaction4);
+        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+        filesOperations.writeTransactions(this, transactions);
+    }
 }

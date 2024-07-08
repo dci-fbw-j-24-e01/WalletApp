@@ -26,7 +26,7 @@ public class DummyActivity extends AppCompatActivity {
 //
 
         dummyTextView = findViewById(R.id.dummyTextView);
-        dummyTextView.setText(getIntent().getStringExtra("DummyText"));
+        dummyTextView.setText(getIntent().getStringExtra("EditTransaction"));
 
 
     }

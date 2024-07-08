@@ -1,6 +1,10 @@
 package org.dci.walletapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +13,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class EditTransactionDummyActivity extends AppCompatActivity {
+    private TextView titleEditTransactionTextView;
+
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +28,12 @@ public class EditTransactionDummyActivity extends AppCompatActivity {
             return insets;
         });
 
+        titleEditTransactionTextView = findViewById(R.id.titleEditTransactionTextView);
+        backButton = findViewById(R.id.backButton);
 
+        titleEditTransactionTextView.setText(getIntent().getStringExtra("EditTransaction"));
+        backButton.setOnClickListener(view -> {
+            finish();
+        });
     }
 }
