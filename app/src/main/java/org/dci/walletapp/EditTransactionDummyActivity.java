@@ -31,7 +31,7 @@ public class EditTransactionDummyActivity extends AppCompatActivity {
         titleEditTransactionTextView = findViewById(R.id.titleEditTransactionTextView);
         backButton = findViewById(R.id.backButton);
 
-        titleEditTransactionTextView.setText(getIntent().getStringExtra("EditTransaction"));
+        titleEditTransactionTextView.setText(getIntent().getStringExtra("ManageTransaction"));
         backButton.setOnClickListener(view -> {
             finish();
         });
