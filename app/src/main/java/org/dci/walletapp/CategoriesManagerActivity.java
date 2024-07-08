@@ -75,7 +75,7 @@ public class CategoriesManagerActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                setRecyclerViewAdapter();
+
             }
         });
 
@@ -84,7 +84,6 @@ public class CategoriesManagerActivity extends AppCompatActivity {
     }
 
     public void setRecyclerViewAdapter() {
-        Toast.makeText(this, MainActivity.getIncomesCategorieslist().size() + "", Toast.LENGTH_SHORT).show();
         if (tabLayout.getSelectedTabPosition() == 0) {
             categoriesList.setAdapter(new CategoriesListAdapter(this, MainActivity.getExpensesCategorieslist()));
         } else {

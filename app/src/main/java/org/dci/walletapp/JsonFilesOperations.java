@@ -106,19 +106,15 @@ public class JsonFilesOperations {
             JsonNode categories;
             if (isIncome) {
                 categories = new ObjectMapper().readTree(stream).get("incomesCategories");
+                MainActivity.setIncomesCategorieslist(new ArrayList<>());
             } else {
                 categories = new ObjectMapper().readTree(stream).get("expensesCategories");
+                MainActivity.setExpensesCategorieslist(new ArrayList<>());
             }
-
-            //List<String> categoriesList = new ArrayList<>();
-            MainActivity.setExpensesCategorieslist(new ArrayList<>());
-            MainActivity.setIncomesCategorieslist(new ArrayList<>());
 
             for (JsonNode category : categories) {
                 if (isIncome) {
-                    //Log.d("testIncome", category.asText());
                     MainActivity.getIncomesCategorieslist().add(category.asText());
-                    //Log.d("testIcome", MainActivity.getIncomesCategorieslist().size() + "");
                 } else {
                     MainActivity.getExpensesCategorieslist().add(category.asText());
                 }
