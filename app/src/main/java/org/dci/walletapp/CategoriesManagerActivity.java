@@ -1,6 +1,8 @@
 package org.dci.walletapp;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -22,22 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesManagerActivity extends AppCompatActivity {
-    //private static List<String> incomesCategories;
-    //private static List<String> expensesCategories;
-
-//    public static List<String> getExpensesCategories() {
-//        return expensesCategories;
-//    }
-//
-//    public static List<String> getIncomesCategories() {
-//        return incomesCategories;
-//    }
 
     TabLayout tabLayout;
     RecyclerView categoriesList;
     EditText inputCategory;
     ImageView addCategoryImage;
-
+    JsonFilesOperations filesOperations;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +41,7 @@ public class CategoriesManagerActivity extends AppCompatActivity {
             return insets;
         });
 
-        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+        filesOperations = JsonFilesOperations.getInstance();
         filesOperations.readCategories(this, true);
         filesOperations.readCategories(this, false);
 
@@ -57,9 +49,6 @@ public class CategoriesManagerActivity extends AppCompatActivity {
         categoriesList = findViewById(R.id.categoriesList);
         addCategoryImage = findViewById(R.id.addCategoryImage);
         inputCategory = findViewById(R.id.inputCategory);
-
-
-        //categoriesList.setAdapter(new CategoriesListAdapter(this, expensesCategories));
 
         categoriesList.setLayoutManager(new LinearLayoutManager(this));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -79,6 +68,13 @@ public class CategoriesManagerActivity extends AppCompatActivity {
             }
         });
 
+        addCategoryImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCategory();
+            }
+        });
+
         setRecyclerViewAdapter();
 
     }
@@ -89,6 +85,31 @@ public class CategoriesManagerActivity extends AppCompatActivity {
         } else {
             categoriesList.setAdapter(new CategoriesListAdapter(this, MainActivity.getIncomesCategorieslist()));
         }
+
+    }
+
+    private void addCategory() {
+        String input = String.valueOf(inputCategory.getText());
+        if (TextUtils.isEmpty(input)) {
+            inputCategory.setError("Enter the valid category name");
+            return;
+        }
+        if (tabLayout.getSelectedTabPosition() == 0) {
+            if (MainActivity.getExpensesCategorieslist().contains(input)) {
+                inputCategory.setError("This category already exists");
+                return;
+            }
+            MainActivity.getExpensesCategorieslist().add(String.valueOf(inputCategory.getText()));
+
+        } else {
+            if (MainActivity.getIncomesCategorieslist().contains(input)) {
+                inputCategory.setError("This category already exists");
+                return;
+            }
+            MainActivity.getIncomesCategorieslist().add(String.valueOf(inputCategory.getText()));
+        }
+        filesOperations.writeCategories(this);
+        setRecyclerViewAdapter();
 
     }
 }

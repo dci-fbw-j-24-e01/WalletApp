@@ -70,9 +70,8 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
 
         holder.imageEdit.setOnClickListener(v -> {
             EditText input = new EditText(context);
-            input.setText(categoriesList.get(position));
-            input.setSelectAllOnFocus(true);
 
+            input.setHint(categoriesList.get(position));
             AlertDialog alertDialog = new AlertDialog.Builder(context)
                     .setTitle("Edit Category name")
                     .setView(input)
@@ -84,7 +83,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
                     .setNegativeButton(android.R.string.no, null).show();
             alertDialog.show();
 
-            input.requestFocus();
         });
 
     }
