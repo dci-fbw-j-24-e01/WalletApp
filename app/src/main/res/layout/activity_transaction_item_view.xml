@@ -7,41 +7,48 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#f9f9f9"
+
     tools:context=".TransactionItemView">
 
     <TextView
         android:id="@+id/amountTextView"
+        android:text="Amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="24sp"
-        android:textColor="#FF5722"
+        android:textSize="25sp"
+        android:textColor="@color/dark_red"
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-medium" />
 
     <TextView
         android:id="@+id/dateTimeTextView"
+        android:text="Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#757575"
-        android:layout_marginBottom="8dp"
+        android:textSize="15sp"
+        android:textColor="@color/dark_violet"
+        android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-light" />
 
     <TextView
         android:id="@+id/descriptionTextView"
+        android:text="Description"
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#212121"
+        android:textColor="@color/black"
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif" />
 
     <TextView
         android:id="@+id/categoryTextView"
+        android:text="Category"
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#009688"
-        android:layout_marginBottom="8dp"
+        android:textColor="@color/teal"
+        android:layout_marginBottom="0dp"
         android:fontFamily="sans-serif" />
 
     <TextView
@@ -50,7 +57,7 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         android:textColor="#4CAF50"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="0dp"
         android:fontFamily="sans-serif" />
 
     <LinearLayout
@@ -58,33 +65,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="0dp">
 
         <Button
             android:id="@+id/editTransactionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#FFC107"
-            android:textColor="#FFFFFF"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="12sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ui_edit1"
            />
 
         <Button
             android:id="@+id/deleteTransactionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:backgroundTint="#F44336"
-            android:textColor="#FFFFFF"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="12sp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ui_delete1"
            />
     </LinearLayout>
 </LinearLayout>
