@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
 
@@ -44,11 +47,12 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
+
+        String formattedBalance = getAmountInCurrency(transactionList.get(position).getAmount());
+        holder.getAmountTextView().setText(formattedBalance);
         if (transactionList.get(position).isIncome()) {
-            holder.getAmountTextView().setText(String.valueOf(transactionList.get(position).getAmount()));
             holder.getAmountTextView().setTextColor(holder.itemView.getResources().getColor(R.color.dark_olive_green));
         } else {
-            holder.getAmountTextView().setText(String.valueOf(transactionList.get(position).getAmount()));
             holder.getAmountTextView().setTextColor(holder.itemView.getResources().getColor(R.color.maroon));
         }
 
@@ -70,6 +74,13 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
             intent.putExtra("DummyText", "Delete transaction Screen!");
             activity.startActivityForResult(intent, 1);
         });
+    }
+
+    private String getAmountInCurrency(double amount) {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("de", "DE"));
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setMaximumFractionDigits(2);
+        return numberFormat.format(amount);
     }
 
     private void updateButtonVisibility(TransactionViewHolder holder) {
