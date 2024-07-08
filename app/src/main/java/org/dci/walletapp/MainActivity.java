@@ -66,7 +66,12 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-      
+
+        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+
+        filesOperations.readCategories(this, true);
+        filesOperations.readCategories(this, false);
+
         addIncomeButton = findViewById(R.id.addIncomeButton);
         addExpenseButton = findViewById(R.id.addExpenseButton);
         profileButton = findViewById(R.id.profileButton);
@@ -134,10 +139,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
-        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-
-        filesOperations.readCategories(this, true);
-        filesOperations.readCategories(this, false);
     }
 
 }

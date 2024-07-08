@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -21,16 +22,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesManagerActivity extends AppCompatActivity {
-    private static List<String> incomesCategories;
-    private static List<String> expensesCategories;
+    //private static List<String> incomesCategories;
+    //private static List<String> expensesCategories;
 
-    public static List<String> getExpensesCategories() {
-        return expensesCategories;
-    }
-
-    public static List<String> getIncomesCategories() {
-        return incomesCategories;
-    }
+//    public static List<String> getExpensesCategories() {
+//        return expensesCategories;
+//    }
+//
+//    public static List<String> getIncomesCategories() {
+//        return incomesCategories;
+//    }
 
     TabLayout tabLayout;
     RecyclerView categoriesList;
@@ -58,7 +59,7 @@ public class CategoriesManagerActivity extends AppCompatActivity {
         inputCategory = findViewById(R.id.inputCategory);
 
 
-        categoriesList.setAdapter(new CategoriesListAdapter(this, expensesCategories));
+        //categoriesList.setAdapter(new CategoriesListAdapter(this, expensesCategories));
 
         categoriesList.setLayoutManager(new LinearLayoutManager(this));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -74,19 +75,20 @@ public class CategoriesManagerActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                setRecyclerViewAdapter();
             }
         });
-        setRecyclerViewAdapter();
 
+        setRecyclerViewAdapter();
 
     }
 
     public void setRecyclerViewAdapter() {
+        Toast.makeText(this, MainActivity.getIncomesCategorieslist().size() + "", Toast.LENGTH_SHORT).show();
         if (tabLayout.getSelectedTabPosition() == 0) {
-            categoriesList.setAdapter(new CategoriesListAdapter(this, expensesCategories));
+            categoriesList.setAdapter(new CategoriesListAdapter(this, MainActivity.getExpensesCategorieslist()));
         } else {
-            categoriesList.setAdapter(new CategoriesListAdapter(this, incomesCategories));
+            categoriesList.setAdapter(new CategoriesListAdapter(this, MainActivity.getIncomesCategorieslist()));
         }
 
     }
