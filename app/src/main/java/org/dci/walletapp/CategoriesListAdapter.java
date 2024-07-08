@@ -56,17 +56,15 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     public void onBindViewHolder(@NonNull CategoriesListViewHolder holder, int position) {
         holder.categoryTextView.setText(categoriesList.get(position));
 
-        holder.imageDelete.setOnClickListener(v -> {
-            new AlertDialog.Builder(context)
-                    .setTitle("Confirm Delete")
-                    .setMessage("Are you sure you want to delete this item?")
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                        deleteCategory(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, categoriesList.size());
-                    })
-                    .setNegativeButton(android.R.string.no, null).show();
-        });
+        holder.imageDelete.setOnClickListener(v -> new AlertDialog.Builder(context)
+                .setTitle("Confirm Delete")
+                .setMessage("Are you sure you want to delete this item?")
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    deleteCategory(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, categoriesList.size());
+                })
+                .setNegativeButton(android.R.string.no, null).show());
 
         holder.imageEdit.setOnClickListener(v -> {
             EditText input = new EditText(context);

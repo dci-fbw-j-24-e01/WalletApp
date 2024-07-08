@@ -40,6 +40,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:layout_marginLeft="15sp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,9 +53,9 @@
             android:layout_marginBottom="5sp"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="Add New Category"
             android:inputType="text"
-            android:selectAllOnFocus="true"
-            android:hint="Add New Category" />
+            android:selectAllOnFocus="true" />
 
         <ImageView
             android:id="@+id/addCategoryImage"

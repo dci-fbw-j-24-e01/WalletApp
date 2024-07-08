@@ -68,12 +68,7 @@ public class CategoriesManagerActivity extends AppCompatActivity {
             }
         });
 
-        addCategoryImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addCategory();
-            }
-        });
+        addCategoryImage.setOnClickListener(v -> addCategory());
 
         setRecyclerViewAdapter();
 
