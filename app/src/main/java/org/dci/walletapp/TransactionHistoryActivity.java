@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +21,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +30,9 @@ import java.util.List;
 public class TransactionHistoryActivity extends AppCompatActivity {
 
     TextView titleTransactionHistory;
-
     Spinner spinnerTransactionsCategory;
-
     RecyclerView listOfTransactions;
-
     SwitchCompat editOrDeleteSwitch;
-
     List<Transaction> transactionList;
     TransactionAdapter transactionAdapter;
 
@@ -64,7 +60,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
             dividerItemDecoration.setDrawable(dividerDrawable);
         }
         listOfTransactions.addItemDecoration(dividerItemDecoration);
-
     }
 
     private void setupSpinner() {
@@ -90,7 +85,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-        transactionAdapter = new TransactionAdapter(this, transactionList,editOrDeleteSwitch);
+        transactionAdapter = new TransactionAdapter(this, transactionList, editOrDeleteSwitch);
         listOfTransactions.setLayoutManager(new LinearLayoutManager(this));
         listOfTransactions.setAdapter(transactionAdapter);
     }
@@ -100,11 +95,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         spinnerTransactionsCategory = findViewById(R.id.spinnerTransactionsCategory);
         editOrDeleteSwitch = findViewById(R.id.editOrDeleteSwitch);
         listOfTransactions = findViewById(R.id.listOfTransactions);
-
     }
 
     private void fetchTransactionsByCategory(int position) {
-
 
         List<Transaction> filteredTransactions;
         switch (position) {
@@ -118,14 +111,13 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 filteredTransactions = JsonFilesOperations.getInstance().readTransactions(this);
                 break;
         }
-        if(!filteredTransactions.isEmpty()) {
+        if (!filteredTransactions.isEmpty()) {
             editOrDeleteSwitch.setVisibility(View.VISIBLE);
             transactionAdapter.updateTransactions(filteredTransactions);
             transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-        }
-        else{
+        } else {
             editOrDeleteSwitch.setVisibility(View.INVISIBLE);
-            Toast.makeText(this, "NoTransactions",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "NoTransactions", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -136,7 +128,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 filteredTransactions.add(transaction);
             }
         }
-        Log.d("SK", filteredTransactions.size()+"");
+        Log.d("SK", filteredTransactions.size() + "");
         return filteredTransactions;
     }
 
@@ -147,51 +139,46 @@ public class TransactionHistoryActivity extends AppCompatActivity {
             // Refresh your transactions here...
             spinnerTransactionsCategory.setSelection(0);
             fetchTransactionsByCategory(0);// This method should reload the transaction list
-
-
         }
     }
 
+    private void testToWriteDataInJSON() {
 
+        List<Transaction> transactions = new ArrayList<>();
+        String date = "2024-03-05";
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
-
-//    private void testToWriteDataInJSON() {
-//
-//        List<Transaction> transactions = new ArrayList<>();
-//        String dateTimeString = "2024-07-02T15:14:00.639424";
-//        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-//
-//        Transaction transaction = new Transaction(321.1,
-//                LocalDateTime.parse(dateTimeString, formatter),
-//                "Test Description",
-//                false,
-//                "Test");
-//        Transaction transaction1 = new Transaction(321.1,
-//                LocalDateTime.parse(dateTimeString, formatter),
-//                "Test Description",
-//                false,
-//                "Test");
-//        Transaction transaction2 = new Transaction(321.1,
-//                LocalDateTime.parse(dateTimeString, formatter),
-//                "Test Description",
-//                true,
-//                "Test");
-//        Transaction transaction3 = new Transaction(321.1,
-//                LocalDateTime.parse(dateTimeString, formatter),
-//                "Test Description",
-//                false,
-//                "Test");
-//        Transaction transaction4 = new Transaction(321.1,
-//                LocalDateTime.parse(dateTimeString, formatter),
-//                "Test Description",
-//                true,
-//                "Test");
-//        transactions.add(transaction);
-//        transactions.add(transaction1);
-//        transactions.add(transaction2);
-//        transactions.add(transaction3);
-//        transactions.add(transaction4);
-//        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-//        filesOperations.writeTransactions(this, transactions);
-//    }
+        Transaction transaction = new Transaction(321.1,
+                LocalDate.parse(date, formatter),
+                "Test Description",
+                false,
+                "Test");
+        Transaction transaction1 = new Transaction(321.1,
+                LocalDate.parse(date, formatter),
+                "Test Description",
+                false,
+                "Test");
+        Transaction transaction2 = new Transaction(321.1,
+                LocalDate.parse(date, formatter),
+                "Test Description",
+                true,
+                "Test");
+        Transaction transaction3 = new Transaction(321.1,
+                LocalDate.parse(date, formatter),
+                "Test Description",
+                false,
+                "Test");
+        Transaction transaction4 = new Transaction(321.1,
+                LocalDate.parse(date, formatter),
+                "Test Description",
+                true,
+                "Test");
+        transactions.add(transaction);
+        transactions.add(transaction1);
+        transactions.add(transaction2);
+        transactions.add(transaction3);
+        transactions.add(transaction4);
+        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+        filesOperations.writeTransactions(this, transactions);
+    }
 }

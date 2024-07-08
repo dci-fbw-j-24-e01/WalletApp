@@ -6,19 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
 
     List<Transaction> transactionList;
-    private Activity activity;
-
-    private SwitchCompat editOrDeleteSwitch;
+    private final Activity activity;
+    private final SwitchCompat editOrDeleteSwitch;
     private boolean isSwitchChecked = false;
 
     public TransactionAdapter(Activity activity, List<Transaction> transactionList, SwitchCompat editOrDeleteSwitch) {
@@ -36,7 +33,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
         });
     }
 
-
     @NonNull
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,20 +45,17 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
         if (transactionList.get(position).isIncome()) {
-            holder.getAmountTextView().setText("Amount: " + transactionList.get(position).getAmount());
+            holder.getAmountTextView().setText(String.valueOf(transactionList.get(position).getAmount()));
             holder.getAmountTextView().setTextColor(holder.itemView.getResources().getColor(R.color.dark_olive_green));
         } else {
-            holder.getAmountTextView().setText("Amount: " + transactionList.get(position).getAmount());
+            holder.getAmountTextView().setText(String.valueOf(transactionList.get(position).getAmount()));
             holder.getAmountTextView().setTextColor(holder.itemView.getResources().getColor(R.color.maroon));
         }
 
-
-        holder.getDateTimeTextView().setText("Date Time: " + transactionList.get(position).getDateTime());
-        holder.getDescriptionTextView().setText("Description: " + transactionList.get(position).getDescription());
-        holder.getCategoryTextView().setText("Category: " + transactionList.get(position).getCategory());
+        holder.getDateTimeTextView().setText(String.valueOf(transactionList.get(position).getDate()));
+        holder.getCategoryTextView().setText(transactionList.get(position).getCategory());
         holder.getIncomeTextView().setText(String.valueOf(transactionList.get(position).isIncome()));
         updateButtonVisibility(holder);
-
 
         holder.getEditTransactionButton().setOnClickListener(view -> {
 
@@ -77,7 +70,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
             intent.putExtra("DummyText", "Delete transaction Screen!");
             activity.startActivityForResult(intent, 1);
         });
-
     }
 
     private void updateButtonVisibility(TransactionViewHolder holder) {
@@ -94,7 +86,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
     public int getItemCount() {
         return transactionList.size();
     }
-
 
     public void updateTransactions(List<Transaction> filteredTransactions) {
         transactionList.clear();
