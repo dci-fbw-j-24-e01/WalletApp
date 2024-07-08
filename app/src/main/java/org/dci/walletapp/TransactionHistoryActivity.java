@@ -118,9 +118,15 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 filteredTransactions = JsonFilesOperations.getInstance().readTransactions(this);
                 break;
         }
-
-        transactionAdapter.updateTransactions(filteredTransactions);
-        transactionList = JsonFilesOperations.getInstance().readTransactions(this);
+        if(!filteredTransactions.isEmpty()) {
+            editOrDeleteSwitch.setVisibility(View.VISIBLE);
+            transactionAdapter.updateTransactions(filteredTransactions);
+            transactionList = JsonFilesOperations.getInstance().readTransactions(this);
+        }
+        else{
+            editOrDeleteSwitch.setVisibility(View.INVISIBLE);
+            Toast.makeText(this, "NoTransactions",Toast.LENGTH_LONG).show();
+        }
     }
 
     private List<Transaction> getTransactionsByType(boolean isIncome) {
