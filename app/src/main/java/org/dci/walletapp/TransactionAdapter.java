@@ -1,17 +1,13 @@
 package org.dci.walletapp;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import java.text.NumberFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,23 +15,12 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
 
     private final List<Transaction> transactionList;
     private final TransactionHistoryActivity activity;
-    private final SwitchCompat editOrDeleteSwitch;
-    private boolean isSwitchChecked = false;
+    private boolean isSwitchChecked;
 
-    public TransactionAdapter(TransactionHistoryActivity activity, List<Transaction> transactionList, SwitchCompat editOrDeleteSwitch) {
+    public TransactionAdapter(TransactionHistoryActivity activity, List<Transaction> transactionList, boolean isSwitchChecked) {
         this.activity = activity;
         this.transactionList = transactionList;
-        this.editOrDeleteSwitch = editOrDeleteSwitch;
-        setupSwitchListener();
-    }
-
-    private void setupSwitchListener() {
-        editOrDeleteSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            isSwitchChecked = isChecked;
-            notifyDataSetChanged(); // Notify the adapter to refresh the views
-        });
-
-
+        this.isSwitchChecked = isSwitchChecked;
     }
 
     @NonNull

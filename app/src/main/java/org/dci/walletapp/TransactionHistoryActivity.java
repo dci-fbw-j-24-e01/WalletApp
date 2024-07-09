@@ -44,10 +44,23 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         });
 
         initializeViews();
-        setupRecyclerView();
+        setupRecyclerView(false);
         setupSpinner();
+        setupSwitchListener();
         lineDividerBetweenTransactions();
-//      testToWriteDataInJSON();
+        testToWriteDataInJSON();
+    }
+
+    private void setupSwitchListener() {
+        editOrDeleteSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                setupRecyclerView(isChecked);
+            } else {
+                setupRecyclerView(false);
+            }
+        });
+
+
     }
 
     private void lineDividerBetweenTransactions() {
@@ -81,9 +94,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         });
     }
 
-    private void setupRecyclerView() {
+    private void setupRecyclerView(boolean isChecked) {
         transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-        transactionAdapter = new TransactionAdapter(this, transactionList, editOrDeleteSwitch);
+        transactionAdapter = new TransactionAdapter(this, transactionList, isChecked);
         listOfTransactions.setLayoutManager(new LinearLayoutManager(this));
         listOfTransactions.setAdapter(transactionAdapter);
     }
@@ -180,6 +193,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     }
 
     public void setAdapter(List<Transaction> list) {
-        listOfTransactions.setAdapter(new TransactionAdapter(this, list, editOrDeleteSwitch));
+        listOfTransactions.setAdapter(new TransactionAdapter(this, list, true));
     }
 }
