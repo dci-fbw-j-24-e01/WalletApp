@@ -18,11 +18,11 @@ import java.util.Locale;
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
 
     private final List<Transaction> transactionList;
-    private final Activity activity;
+    private final TransactionHistoryActivity activity;
     private final SwitchCompat editOrDeleteSwitch;
     private boolean isSwitchChecked = false;
 
-    public TransactionAdapter(Activity activity, List<Transaction> transactionList, SwitchCompat editOrDeleteSwitch) {
+    public TransactionAdapter(TransactionHistoryActivity activity, List<Transaction> transactionList, SwitchCompat editOrDeleteSwitch) {
         this.activity = activity;
         this.transactionList = transactionList;
         this.editOrDeleteSwitch = editOrDeleteSwitch;
@@ -113,6 +113,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
     private void deleteTransaction(int position) {
         transactionList.remove(position);
         JsonFilesOperations.getInstance().writeTransactions(activity, transactionList);
-        activity.set
+        activity.setAdapter(transactionList);
     }
 }
