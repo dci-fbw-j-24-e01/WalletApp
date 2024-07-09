@@ -1,106 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".IncomeActivity"
-    android:orientation="vertical"
-    android:padding="50dp"
-    android:layout_gravity="center" >
-
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/new_income"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/amountEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="50dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="5dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:hint="0.00 €"/>
-
-    <Spinner
-        android:id="@+id/sourceSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="5dp"
-        android:layout_gravity="center"/>
-
-    <EditText
-        android:id="@+id/dateEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="5dp"
-        android:ems="10"
-        android:inputType="date"
-        android:textSize="18sp"
-        android:focusable="false"
-        android:layout_gravity="center"
-        android:hint="@string/date_hint"/>
-
-
-    <EditText
-        android:id="@+id/descriptionEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:hint="@string/description"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="5dp" />
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".IncomeActivity">
 
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="@string/cancel"
-            android:textSize="16sp"
-            tools:ignore="ButtonStyle" />
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/new_transaction"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/backButton"
+        <EditText
+            android:id="@+id/amountEditText"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:text="@string/go_back"
-            android:textSize="16sp"
-            android:visibility="invisible"
-            tools:ignore="ButtonStyle" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/hint_amount"
+            android:inputType="numberDecimal"
+            android:textColorHint="@color/deep_space_sparkle"
+            android:minWidth="50dp"
+            android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/saveButton"
+        <Spinner
+            android:id="@+id/categoriesSpinner"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="@string/save"
-            android:textSize="16sp"
-            tools:ignore="ButtonStyle" />
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/dateEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:minHeight="48dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/date_hint"
+            android:inputType="date"
+            android:textColorHint="@color/deep_space_sparkle"
+            android:textSize="18sp" />
+
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:maxWidth="488dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:autofillHints=""
+            android:maxLength="500" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/cancel"
+                android:textSize="16sp"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:text="@string/go_back"
+                android:textSize="16sp"
+                android:visibility="invisible"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/save"
+                android:textSize="16sp"
+                tools:ignore="ButtonStyle" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
