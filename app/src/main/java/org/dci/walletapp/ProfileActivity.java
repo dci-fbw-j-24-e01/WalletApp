@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -92,31 +93,30 @@ public class ProfileActivity extends AppCompatActivity {
         editTextChangedListener(nameEditText);
         editTextChangedListener(emailEditText);
 
-        profile = JsonFilesOperations.getInstance().readProfileFromJSON(this);
+        profile = JsonFilesOperations.getInstance().readProfileFromJSON(this, profile);
 
-        if(profile != null) {
+        if (profile != null) {
 
             Bitmap decodedByte = base64StringToBitmap(profile.getProfileImage());
-
             if (decodedByte != null) {
                 profileImageView.setImageBitmap(decodedByte);
             } else {
                 profileImageView.setImageResource(R.drawable.default_profile);
             }
-
             nameEditText.setText(profile.getName());
             emailEditText.setText(profile.getEmail());
         }
 
-        editImageButton.setOnClickListener(view -> showImageSourceDialog());
+        editImageButton.setOnClickListener(view -> {
+            updateButtonVisibility(true);
+            showImageSourceDialog();
+        });
 
         goBackButton.setOnClickListener(view -> {
-            updateButtonVisibility(true);
             finish();
         });
 
         cancelButton.setOnClickListener(view -> finish());
-
         saveButton.setOnClickListener(view -> {
 
             if (isImagePresentInImageView(profileImageView) && !isImageAvailable) {
@@ -161,7 +161,7 @@ public class ProfileActivity extends AppCompatActivity {
         goBackButton.setVisibility(goBackVisibility);
         saveButton.setVisibility(editModeVisibility);
         cancelButton.setVisibility(editModeVisibility);
-//        editImageButton.setVisibility(editModeVisibility);
+
     }
 
     public static Bitmap base64StringToBitmap(String base64String) {
@@ -330,7 +330,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
     private void saveImageToInternalStorage(Bitmap bitmap) {

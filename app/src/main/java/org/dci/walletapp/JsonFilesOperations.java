@@ -112,8 +112,8 @@ public class JsonFilesOperations {
         return categoriesList;
     }
 
-    public Profile readProfileFromJSON(Context context) {
-        Profile profile = new Profile();
+    public Profile readProfileFromJSON(Context context, Profile profile) {
+
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
 
