@@ -1,6 +1,7 @@
 package org.dci.walletapp;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.os.Build;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -109,5 +110,31 @@ public class JsonFilesOperations {
             return new ArrayList<String>();
         }
         return categoriesList;
+    }
+
+    public Profile readProfileFromJSON(Context context) {
+        Profile profile = new Profile();
+        ContextWrapper contextWrapper = new ContextWrapper(context);
+        File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
+
+        if (directory != null) {
+            File file =  new File(directory, "profile.json");
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                try (InputStream stream = Files.newInputStream(file.toPath())) {
+                    JsonNode rootNode = new ObjectMapper().readTree(stream);
+
+                    profile = new Profile(rootNode.get("name").asText(), rootNode.get("email").asText());
+                    profile.setProfileImage(rootNode.get("profileImage").asText());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            profile = new Profile();
+        }
+
+        return profile;
     }
 }

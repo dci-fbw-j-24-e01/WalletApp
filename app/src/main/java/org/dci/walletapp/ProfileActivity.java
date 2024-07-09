@@ -8,8 +8,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -61,7 +62,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Button saveButton;
     private Button cancelButton;
     private Button goBackButton;
-    private Button editImageButton;
+
+    private boolean isImageAvailable;
 
 
     @Override
@@ -81,18 +83,16 @@ public class ProfileActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         cancelButton = findViewById(R.id.cancelButton);
         goBackButton = findViewById(R.id.backButton);
-        editImageButton = findViewById(R.id.editImageButton);
+        Button editImageButton = findViewById(R.id.editImageButton);
 
         // Autofill suggestion to the user for name and email if previously typed on your phone
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            nameEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
-            emailEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
-        }
+        nameEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
+        emailEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
 
         editTextChangedListener(nameEditText);
         editTextChangedListener(emailEditText);
 
-        profile = readProfileFromJSON(this);
+        profile = JsonFilesOperations.getInstance().readProfileFromJSON(this);
 
         if(profile != null) {
 
@@ -118,6 +118,12 @@ public class ProfileActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(view -> finish());
 
         saveButton.setOnClickListener(view -> {
+
+            if (isImagePresentInImageView(profileImageView) && !isImageAvailable) {
+                imageBitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
+                saveImageToInternalStorage(imageBitmap);
+            }
+
             boolean isValid = validateProfileForm();
 
             if (isValid) {
@@ -139,6 +145,15 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isImagePresentInImageView(ImageView imageView) {
+        Drawable drawable = imageView.getDrawable();
+        boolean hasImage = (drawable != null);
+        if (hasImage && (drawable instanceof BitmapDrawable)) {
+            hasImage = ((BitmapDrawable) drawable).getBitmap() != null;
+        }
+        return hasImage;
+    }
+
     private void updateButtonVisibility(boolean isProfileEditable) {
         int goBackVisibility = isProfileEditable ? View.INVISIBLE : View.VISIBLE;
         int editModeVisibility = isProfileEditable ? View.VISIBLE : View.INVISIBLE;
@@ -146,7 +161,7 @@ public class ProfileActivity extends AppCompatActivity {
         goBackButton.setVisibility(goBackVisibility);
         saveButton.setVisibility(editModeVisibility);
         cancelButton.setVisibility(editModeVisibility);
-        editImageButton.setVisibility(editModeVisibility);
+//        editImageButton.setVisibility(editModeVisibility);
     }
 
     public static Bitmap base64StringToBitmap(String base64String) {
@@ -195,11 +210,20 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+
     private boolean validateProfileForm() {
         String name = nameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
+        boolean isNameValid = validateName(name);
+        boolean isEmailValid = validateEmail(email);
+        if (!isNameValid) {
+            nameEditText.requestFocus();
+        }
+        if (!isEmailValid) {
+            emailEditText.requestFocus();
+        }
 
-        return validateName(name) && validateEmail(email);
+        return isNameValid && isEmailValid;
     }
 
     private boolean validateName(String name) {
@@ -211,7 +235,7 @@ public class ProfileActivity extends AppCompatActivity {
             setEditTextInputError(nameEditText, "Name length should have at least 2 characters");
             return false;
         }
-        if (!name.matches("^[a-zA-Z-.' ]+$")) {
+        if (!name.matches("^[a-zA-Z][a-zA-Z-.' ]*$")) {
             setEditTextInputError(nameEditText, "Name can only contain letters, dash, dot, single quote or space");
             return false;
         }
@@ -292,12 +316,14 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 profileImageView.setImageBitmap(imageBitmap);
                 saveImageToInternalStorage(imageBitmap);
+                isImageAvailable = true;
             } else if (requestCode == REQUEST_PICK_IMAGE && data != null) {
                 Uri selectedImage = data.getData();
                 try {
                     imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                     profileImageView.setImageBitmap(imageBitmap);
                     saveImageToInternalStorage(imageBitmap);
+                    isImageAvailable = true;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -305,13 +331,14 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void saveImageToInternalStorage(Bitmap bitmap) {
         try {
             String filename = "profile_image_" + System.currentTimeMillis() + ".jpg";
             FileOutputStream fileOutputStream = openFileOutput(filename, MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
             fileOutputStream.close();
-            Toast.makeText(this, "Image saved successfully", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Error saving image", Toast.LENGTH_SHORT).show();
@@ -334,29 +361,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public Profile readProfileFromJSON(Context context) {
-        ContextWrapper contextWrapper = new ContextWrapper(context);
-        File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
 
-        if (directory != null) {
-            File file =  new File(directory, "profile.json");
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                try (InputStream stream = Files.newInputStream(file.toPath())) {
-                    JsonNode rootNode = new ObjectMapper().readTree(stream);
-
-                    profile = new Profile(rootNode.get("name").asText(), rootNode.get("email").asText());
-                    profile.setProfileImage(rootNode.get("profileImage").asText());
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            profile = new Profile();
-        }
-
-        return profile;
-    }
 }
 
