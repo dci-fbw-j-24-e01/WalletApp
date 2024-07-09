@@ -1,6 +1,7 @@
 package org.dci.walletapp;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Transaction {
     private boolean income;
@@ -8,6 +9,7 @@ public class Transaction {
     private LocalDateTime dateTime;
     private String category;
     private String description;
+
 
     public Transaction(double amount, String description, boolean income, String category) {
         this.amount = amount;
@@ -64,5 +66,11 @@ public class Transaction {
 
     public void setCategory(String incomeSource) {
         this.category = incomeSource;
+    }
+
+    public String formatDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formatDateTime = getDateTime().format(formatter);
+        return formatDateTime;
     }
 }

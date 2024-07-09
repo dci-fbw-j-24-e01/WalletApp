@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,7 +55,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
             holder.getAmountTextView().setTextColor(holder.itemView.getResources().getColor(R.color.maroon));
         }
 
-        String date = String.valueOf(transactionList.get(position).getDateTime().toLocalDate());
+        String date = String.valueOf(transactionList.get(position).formatDateTime());
         holder.getDateTimeTextView().setText(date);
         holder.getCategoryTextView().setText(transactionList.get(position).getCategory());
         holder.getIncomeTextView().setText(String.valueOf(transactionList.get(position).isIncome()));
