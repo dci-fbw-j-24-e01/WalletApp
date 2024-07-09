@@ -53,11 +53,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
     private void setupSwitchListener() {
         editOrDeleteSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
                 setupRecyclerView(isChecked);
-            } else {
-                setupRecyclerView(false);
-            }
         });
 
 
