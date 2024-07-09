@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         });
         historyButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
+            Intent intent = new Intent(MainActivity.this, TransactionHistoryActivity.class);
             intent.putExtra("DummyText", "History Screen!");
             startActivity(intent);
 

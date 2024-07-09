@@ -16,6 +16,15 @@
             android:name=".IncomeActivity"
             android:exported="false" />
         <activity
+            android:name=".EditTransactionDummyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TransactionItemView"
+            android:exported="false" />
+        <activity
+            android:name=".TransactionHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".HelpAndSupportActivity"
             android:exported="false" />
         <activity
@@ -29,7 +38,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
