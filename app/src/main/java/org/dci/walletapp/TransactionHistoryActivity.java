@@ -178,4 +178,8 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
         filesOperations.writeTransactions(this, transactions);
     }
+
+    public void setAdapter(List<Transaction> list) {
+        listOfTransactions.setAdapter(new TransactionAdapter(this, list, editOrDeleteSwitch));
+    }
 }

@@ -1,6 +1,7 @@
 package org.dci.walletapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
             isSwitchChecked = isChecked;
             notifyDataSetChanged(); // Notify the adapter to refresh the views
         });
+
+
     }
 
     @NonNull
@@ -61,19 +64,21 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
         holder.getIncomeTextView().setText(String.valueOf(transactionList.get(position).isIncome()));
         updateEditOrDeleteButtonVisibility(holder);
 
+        holder.getDeleteTransactionButton().setOnClickListener(view -> new AlertDialog.Builder(activity)
+                .setTitle("Confirm Delete")
+                .setMessage("Are you sure you want to delete this transaction?")
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    deleteTransaction(position);
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show());
+
         holder.getEditTransactionButton().setOnClickListener(view -> {
 
             Intent intent = new Intent(activity, EditTransactionDummyActivity.class);
             intent.putExtra("ManageTransaction", "Edit transaction Screen!");
             activity.startActivityForResult(intent, 1);
 
-        });
-
-        holder.getDeleteTransactionButton().setOnClickListener(view -> {
-
-            Intent intent = new Intent(activity, EditTransactionDummyActivity.class);
-            intent.putExtra("ManageTransaction", "Delete transaction Screen!");
-            activity.startActivityForResult(intent, 1);
         });
     }
 
@@ -103,5 +108,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
         transactionList.clear();
         transactionList.addAll(filteredTransactions);
         notifyDataSetChanged();
+    }
+
+    private void deleteTransaction(int position) {
+        transactionList.remove(position);
+        JsonFilesOperations.getInstance().writeTransactions(activity, transactionList);
+        activity.set
     }
 }
