@@ -70,8 +70,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
 
         holder.getDeleteTransactionButton().setOnClickListener(view -> {
 
-            Intent intent = new Intent(activity, EditTransactionDummyActivity.class);
-            intent.putExtra("ManageTransaction", "Delete transaction Screen!");
+            Intent intent = new Intent(activity, EditTransactionActivity.class);
+            intent.putExtra("position", position);
             activity.startActivityForResult(intent, 1);
         });
     }

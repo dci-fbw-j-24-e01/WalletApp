@@ -2,7 +2,6 @@ package org.dci.walletapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -12,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -32,9 +32,30 @@ public class MainActivity extends AppCompatActivity {
     private final String userName = "WalletUser";
     private double currentBalanceEuro = 16180.33;
 
+    private static List<String> incomesCategorieslist;
+    private static List<String> expensesCategorieslist;
 
+    public static List<String> getExpensesCategorieslist() {
+        if (expensesCategorieslist == null) {
+            JsonFilesOperations.getInstance().readTransactions(this);
+        }
+        return expensesCategorieslist;
+    }
 
+    public static List<String> getIncomesCategorieslist() {
+        if (incomesCategorieslist == null) {
+            JsonFilesOperations.getInstance().readTransactions(this);
+        }
+        return incomesCategorieslist;
+    }
 
+    public static void setExpensesCategorieslist(List<String> expencesCategorieslist) {
+        MainActivity.expensesCategorieslist = expencesCategorieslist;
+    }
+
+    public static void setIncomesCategorieslist(List<String> incomesCategorieslist) {
+        MainActivity.incomesCategorieslist = incomesCategorieslist;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
         addExpenseButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
+            Intent intent = new Intent(MainActivity.this, EditTransactionActivity.class);
             intent.putExtra("DummyText", "Expense Screen!");
             startActivity(intent);
 
@@ -126,22 +147,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test() {
-        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-
-        List<String> incomesCategorieslist = filesOperations.readCategories(this, true);
-        List<String> expencesCategorieslist = filesOperations.readCategories(this, false);
-
-        incomesCategorieslist.add("Salary");
-        incomesCategorieslist.add("Bonus");
-        incomesCategorieslist.add("Others");
-
-        expencesCategorieslist.add("Food");
-        expencesCategorieslist.add("Transport");
-        expencesCategorieslist.add("Entertainment");
-        expencesCategorieslist.add("House");
-        expencesCategorieslist.add("Children");
-        expencesCategorieslist.add("Others");
-
-        filesOperations.writeCategories(this, incomesCategorieslist, expencesCategorieslist);
+        List<Transaction> list = Transaction.getTransactionsList(this);
     }
 }

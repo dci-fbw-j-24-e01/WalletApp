@@ -70,7 +70,7 @@ public class JsonFilesOperations {
                 ));
             }
         } catch (IOException e) {
-            return new ArrayList<Transaction>();
+            return new ArrayList<>();
         }
         return transactionsList;
     }
@@ -90,24 +90,37 @@ public class JsonFilesOperations {
         }
     }
 
-    public List<String> readCategories(Context context, boolean isIncome) {
+    public void readCategories(Context context, boolean isIncome) {
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
         File file =  new File(directory, "categories.json");
-        List<String> categoriesList = new ArrayList<>();
+        if (!file.exists()) {
+            MainActivity.setIncomesCategorieslist(List.of("Salary", "Bonus", "Others"));
+            MainActivity.setExpensesCategorieslist(List.of("Food", "Transport", "Entertainment",
+                    "House", "Children", "Others"));
+            writeCategories(context, MainActivity.getIncomesCategorieslist(), MainActivity.getExpensesCategorieslist());
+            return;
+        }
+
         try (InputStream stream = Files.newInputStream(file.toPath())) {
             JsonNode categories;
             if (isIncome) {
                 categories = new ObjectMapper().readTree(stream).get("incomesCategories");
+                MainActivity.setIncomesCategorieslist(new ArrayList<>());
             } else {
                 categories = new ObjectMapper().readTree(stream).get("expensesCategories");
+                MainActivity.setExpensesCategorieslist(new ArrayList<>());
             }
+
             for (JsonNode category : categories) {
-                categoriesList.add(category.asText());
+                if (isIncome) {
+                    MainActivity.getIncomesCategorieslist().add(category.asText());
+                } else {
+                    MainActivity.getExpensesCategorieslist().add(category.asText());
+                }
             }
         } catch (IOException e) {
-            return new ArrayList<String>();
+            Log.d("Categories file read was failed", e.toString());
         }
-        return categoriesList;
     }
 }

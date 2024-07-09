@@ -1,8 +1,22 @@
 package org.dci.walletapp;
 
+import android.content.Context;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Transaction {
+
+    private static List<Transaction> transactionsList;
+
+    public static List<Transaction> getTransactionsList(Context context) {
+        if (transactionsList == null) {
+            transactionsList = JsonFilesOperations.getInstance().readTransactions(context);
+        }
+        return transactionsList;
+    }
+
     private boolean income;
     private double amount;
     private LocalDateTime dateTime;
@@ -14,8 +28,11 @@ public class Transaction {
         this.description = description;
         this.income = income;
         this.category = category;
-
         dateTime = LocalDateTime.now();
+
+        if (transactionsList == null) {
+            transactionsList = new ArrayList<>();
+        }
     }
 
     public Transaction(double amount, LocalDateTime dateTime, String description, boolean income, String category) {
@@ -24,6 +41,10 @@ public class Transaction {
         this.description = description;
         this.income = income;
         this.category = category;
+
+        if (transactionsList == null) {
+            transactionsList = new ArrayList<>();
+        }
     }
 
     public double getAmount() {
