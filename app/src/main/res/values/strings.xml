@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WalletApp</string>
+    <string name="app_name">My Wallet</string>
     <string name="profile_information">Profile Information</string>
     <string name="edit_pencil_icon">🖊</string>
     <string name="name">Name</string>
@@ -8,4 +8,7 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="go_back">Go Back</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+    <string name="category">Category</string>
 </resources>
