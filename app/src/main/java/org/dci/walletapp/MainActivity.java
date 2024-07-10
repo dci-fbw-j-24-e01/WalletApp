@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentBalanceText;
     private TextView currentBalance;
 
+
     private final String userName = "WalletUser";
     private double currentBalanceEuro = 16180.33;
 
