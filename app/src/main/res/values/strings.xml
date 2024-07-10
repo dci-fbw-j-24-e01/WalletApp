@@ -6,4 +6,8 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="item">Item</string>
+    <string name="categoriesManager">Categories Manager</string>
+    <string name="expenses">Expenses</string>
+    <string name="incomes">Incomes</string>
+    <string name="addCategory">Add new Category</string>
 </resources>
