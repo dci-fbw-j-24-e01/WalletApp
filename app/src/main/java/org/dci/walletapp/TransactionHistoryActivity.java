@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -24,13 +25,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionHistoryActivity extends AppCompatActivity {
+public class TransactionHistoryActivity extends AppCompatActivity implements TransactionAdapter.TransactionDeleteHandler {
 
     private Spinner spinnerTransactionsCategory;
     private RecyclerView listOfTransactions;
     private SwitchCompat editOrDeleteSwitch;
     private List<Transaction> transactionList;
     private TransactionAdapter transactionAdapter;
+    private List<Transaction> filteredList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,34 @@ public class TransactionHistoryActivity extends AppCompatActivity {
             return insets;
         });
 
+        transactionList = JsonFilesOperations.getInstance().readTransactions(this);
+
+
+        // TODO: for testing only, needs to be removed later
+        // everytime the activity opens without transactions in the JSON storage
+        // it will add some transactions for quick testing
+        if (transactionList.isEmpty()) {
+            testToWriteDataInJSON();
+        }
+
+
+        filteredList = new ArrayList<>();
+        filteredList.addAll(transactionList);
+
         initializeViews();
-        setupRecyclerView();
+        setupRecyclerView(false);
         setupSpinner();
+        setupSwitchListener();
         lineDividerBetweenTransactions();
-//      testToWriteDataInJSON();
+
+    }
+
+    private void setupSwitchListener() {
+        editOrDeleteSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            setupRecyclerView(isChecked);
+        });
+
+
     }
 
     private void lineDividerBetweenTransactions() {
@@ -81,9 +106,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         });
     }
 
-    private void setupRecyclerView() {
-        transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-        transactionAdapter = new TransactionAdapter(this, transactionList, editOrDeleteSwitch);
+    private void setupRecyclerView(boolean isChecked) {
+
+        transactionAdapter = new TransactionAdapter(this, filteredList, isChecked, this);
         listOfTransactions.setLayoutManager(new LinearLayoutManager(this));
         listOfTransactions.setAdapter(transactionAdapter);
     }
@@ -108,12 +133,11 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 filteredTransactions = JsonFilesOperations.getInstance().readTransactions(this);
                 break;
         }
-        if (!filteredTransactions.isEmpty()) {
-            editOrDeleteSwitch.setVisibility(View.VISIBLE);
-            transactionAdapter.updateTransactions(filteredTransactions);
-            transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-        } else {
-            editOrDeleteSwitch.setVisibility(View.INVISIBLE);
+
+        this.filteredList = filteredTransactions;
+        listOfTransactions.setAdapter(new TransactionAdapter(this, filteredList, editOrDeleteSwitch.isChecked(), this));
+
+        if (filteredTransactions.isEmpty()) {
             Toast.makeText(this, "No Transactions", Toast.LENGTH_LONG).show();
         }
     }
@@ -145,27 +169,27 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         String dateTimeString = "2024-07-02T15:14:00.639424";
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-        Transaction transaction = new Transaction(321.1,
+        Transaction transaction = new Transaction(100,
                 LocalDateTime.parse(dateTimeString, formatter),
                 "Test Description",
                 false,
                 "Test");
-        Transaction transaction1 = new Transaction(321.1,
+        Transaction transaction1 = new Transaction(200,
                 LocalDateTime.parse(dateTimeString, formatter),
                 "Test Description",
                 false,
                 "Test");
-        Transaction transaction2 = new Transaction(321.1,
+        Transaction transaction2 = new Transaction(300,
                 LocalDateTime.parse(dateTimeString, formatter),
                 "Test Description",
                 true,
                 "Test");
-        Transaction transaction3 = new Transaction(321.1,
+        Transaction transaction3 = new Transaction(400.5,
                 LocalDateTime.parse(dateTimeString, formatter),
                 "Test Description",
                 false,
                 "Test");
-        Transaction transaction4 = new Transaction(321.1,
+        Transaction transaction4 = new Transaction(500,
                 LocalDateTime.parse(dateTimeString, formatter),
                 "Test Description",
                 true,
@@ -177,5 +201,15 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         transactions.add(transaction4);
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
         filesOperations.writeTransactions(this, transactions);
+        transactionList = transactions;
+    }
+
+    @Override
+    public void onDelete(Transaction transaction) {
+        transactionList.remove(transaction);
+        filteredList.remove(transaction);
+        listOfTransactions.setAdapter(new TransactionAdapter(this, filteredList, editOrDeleteSwitch.isChecked(), this));
+
+        JsonFilesOperations.getInstance().writeTransactions(this, transactionList);
     }
 }
