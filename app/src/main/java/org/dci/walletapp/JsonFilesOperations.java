@@ -1,7 +1,6 @@
 package org.dci.walletapp;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -120,7 +119,7 @@ public class JsonFilesOperations {
                 }
             }
         } catch (IOException e) {
-            Log.d("Categories file read was failed", e.toString());
+            throw new RuntimeException("Failed to read categories file");
         }
     }
 }
