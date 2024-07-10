@@ -2,6 +2,7 @@ package org.dci.walletapp;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Transaction {
     private boolean income;
@@ -72,5 +73,18 @@ public class Transaction {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String formatDateTime = getDateTime().format(formatter);
         return formatDateTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return income == that.income && Double.compare(amount, that.amount) == 0 && Objects.equals(dateTime, that.dateTime) && Objects.equals(category, that.category) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(income, amount, dateTime, category, description);
     }
 }

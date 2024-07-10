@@ -13,14 +13,20 @@ import java.util.Locale;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
 
+    public interface TransactionDeleteHandler {
+        void onDelete(Transaction transaction);
+    }
+
     private final List<Transaction> transactionList;
     private final TransactionHistoryActivity activity;
     private boolean isSwitchChecked;
+    private final TransactionDeleteHandler transactionDeleteHandler;
 
-    public TransactionAdapter(TransactionHistoryActivity activity, List<Transaction> transactionList, boolean isSwitchChecked) {
+    public TransactionAdapter(TransactionHistoryActivity activity, List<Transaction> transactionList, boolean isSwitchChecked, TransactionDeleteHandler transactionDeleteHandler) {
         this.activity = activity;
         this.transactionList = transactionList;
         this.isSwitchChecked = isSwitchChecked;
+        this.transactionDeleteHandler = transactionDeleteHandler;
     }
 
     @NonNull
@@ -89,15 +95,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
         return transactionList.size();
     }
 
-    public void updateTransactions(List<Transaction> filteredTransactions) {
-        transactionList.clear();
-        transactionList.addAll(filteredTransactions);
-        notifyDataSetChanged();
-    }
-
     private void deleteTransaction(int position) {
-        transactionList.remove(position);
-        JsonFilesOperations.getInstance().writeTransactions(activity, transactionList);
-        activity.setAdapter(transactionList);
+        Transaction transaction = transactionList.get(position);
+        transactionDeleteHandler.onDelete(transaction);
     }
 }
