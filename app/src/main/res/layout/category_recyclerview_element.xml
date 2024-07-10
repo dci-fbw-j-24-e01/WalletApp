@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Item"
+        android:text="@string/item"
         android:textSize="24sp"/>
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:id="@+id/imageEdit"
             android:layout_width="48dp"
             android:layout_height="match_parent"
-            android:contentDescription="Edit"
+            android:contentDescription="@string/edit"
             android:gravity="center_horizontal"
             android:scaleType="centerCrop"
             android:src="@drawable/edit" />
@@ -35,8 +35,8 @@
             android:id="@+id/imageDelete"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginLeft="3sp"
-            android:contentDescription="Delete"
+            android:layout_marginStart="3sp"
+            android:contentDescription="@string/delete"
             android:gravity="center_horizontal"
             android:scaleType="centerCrop"
             android:src="@drawable/delete" />
