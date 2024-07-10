@@ -1,18 +1,17 @@
 package org.dci.walletapp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-
 
 import java.util.List;
 import java.text.NumberFormat;
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private final String userName = "WalletUser";
     private double currentBalanceEuro = 16180.33;
 
+
     private static List<String> incomesCategorieslist;
     private static List<String> expensesCategorieslist;
 
@@ -56,10 +56,12 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.incomesCategorieslist = incomesCategorieslist;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -68,10 +70,13 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
 
         filesOperations.readCategories(this, true);
         filesOperations.readCategories(this, false);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         addIncomeButton = findViewById(R.id.addIncomeButton);
         addExpenseButton = findViewById(R.id.addExpenseButton);
@@ -100,8 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         addIncomeButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
-            intent.putExtra("DummyText", "Income Screen!");
+            Intent intent = new Intent(MainActivity.this, IncomeActivity.class);
             startActivity(intent);
 
         });

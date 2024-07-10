@@ -35,6 +35,13 @@ public class JsonFilesOperations {
         return instance;
     }
 
+    public boolean fileExists(Context context, String filename) {
+        ContextWrapper contextWrapper = new ContextWrapper(context);
+        File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
+        File file = new File(directory, filename);
+        return file.exists();
+    }
+
     public void writeTransactions(Context context, List<Transaction> transactionsList) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JSR310Module());

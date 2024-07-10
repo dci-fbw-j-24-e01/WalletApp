@@ -1,13 +1,11 @@
 package org.dci.walletapp;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import java.text.NumberFormat;
 import java.util.List;
@@ -15,23 +13,20 @@ import java.util.Locale;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
 
-    private final List<Transaction> transactionList;
-    private final Activity activity;
-    private final SwitchCompat editOrDeleteSwitch;
-    private boolean isSwitchChecked = false;
-
-    public TransactionAdapter(Activity activity, List<Transaction> transactionList, SwitchCompat editOrDeleteSwitch) {
-        this.activity = activity;
-        this.transactionList = transactionList;
-        this.editOrDeleteSwitch = editOrDeleteSwitch;
-        setupSwitchListener();
+    public interface TransactionDeleteHandler {
+        void onDelete(Transaction transaction);
     }
 
-    private void setupSwitchListener() {
-        editOrDeleteSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            isSwitchChecked = isChecked;
-            notifyDataSetChanged(); // Notify the adapter to refresh the views
-        });
+    private final List<Transaction> transactionList;
+    private final TransactionHistoryActivity activity;
+    private boolean isSwitchChecked;
+    private final TransactionDeleteHandler transactionDeleteHandler;
+
+    public TransactionAdapter(TransactionHistoryActivity activity, List<Transaction> transactionList, boolean isSwitchChecked, TransactionDeleteHandler transactionDeleteHandler) {
+        this.activity = activity;
+        this.transactionList = transactionList;
+        this.isSwitchChecked = isSwitchChecked;
+        this.transactionDeleteHandler = transactionDeleteHandler;
     }
 
     @NonNull
@@ -54,11 +49,20 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
             holder.getAmountTextView().setTextColor(holder.itemView.getResources().getColor(R.color.maroon));
         }
 
-        String date = String.valueOf(transactionList.get(position).getDateTime().toLocalDate());
+        String date = String.valueOf(transactionList.get(position).formatDateTime());
         holder.getDateTimeTextView().setText(date);
         holder.getCategoryTextView().setText(transactionList.get(position).getCategory());
         holder.getIncomeTextView().setText(String.valueOf(transactionList.get(position).isIncome()));
         updateEditOrDeleteButtonVisibility(holder);
+
+        holder.getDeleteTransactionButton().setOnClickListener(view -> new AlertDialog.Builder(activity)
+                .setTitle("Confirm Delete")
+                .setMessage("Are you sure you want to delete this transaction?")
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    deleteTransaction(position);
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show());
 
         holder.getEditTransactionButton().setOnClickListener(view -> {
 
@@ -66,13 +70,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
             intent.putExtra("ManageTransaction", "Edit transaction Screen!");
             activity.startActivityForResult(intent, 1);
 
-        });
-
-        holder.getDeleteTransactionButton().setOnClickListener(view -> {
-
-            Intent intent = new Intent(activity, EditTransactionDummyActivity.class);
-            intent.putExtra("ManageTransaction", "Delete transaction Screen!");
-            activity.startActivityForResult(intent, 1);
         });
     }
 
@@ -98,9 +95,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
         return transactionList.size();
     }
 
-    public void updateTransactions(List<Transaction> filteredTransactions) {
-        transactionList.clear();
-        transactionList.addAll(filteredTransactions);
-        notifyDataSetChanged();
+    private void deleteTransaction(int position) {
+        Transaction transaction = transactionList.get(position);
+        transactionDeleteHandler.onDelete(transaction);
     }
 }
