@@ -16,4 +16,12 @@
     <string name="amount">Amount</string>
     <string name="date">Date</string>
     <string name="category">Category</string>
+    <string name="app_name">My Wallet</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="item">Item</string>
+    <string name="categoriesManager">Categories Manager</string>
+    <string name="expenses">Expenses</string>
+    <string name="incomes">Incomes</string>
+    <string name="addCategory">Add new Category</string>
 </resources>
