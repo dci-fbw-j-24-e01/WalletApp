@@ -17,6 +17,7 @@ import java.util.List;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private Button addIncomeButton;
@@ -30,8 +31,31 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentBalanceText;
     private TextView currentBalance;
 
+
     private final String userName = "WalletUser";
     private double currentBalanceEuro = 16180.33;
+
+
+    private static List<String> incomesCategorieslist;
+    private static List<String> expensesCategorieslist;
+
+    public static List<String> getExpensesCategorieslist() {
+        return expensesCategorieslist;
+    }
+
+    public static List<String> getIncomesCategorieslist() {
+        return incomesCategorieslist;
+    }
+
+
+    public static void setExpensesCategorieslist(List<String> expencesCategorieslist) {
+        MainActivity.expensesCategorieslist = expencesCategorieslist;
+    }
+
+    public static void setIncomesCategorieslist(List<String> incomesCategorieslist) {
+        MainActivity.incomesCategorieslist = incomesCategorieslist;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +70,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
+        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+
+        filesOperations.readCategories(this, true);
+        filesOperations.readCategories(this, false);
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-      
         addIncomeButton = findViewById(R.id.addIncomeButton);
         addExpenseButton = findViewById(R.id.addExpenseButton);
         profileButton = findViewById(R.id.profileButton);
@@ -79,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, IncomeActivity.class);
             startActivity(intent);
 
-
-
         });
 
         addExpenseButton.setOnClickListener((view) -> {
@@ -89,14 +116,12 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("DummyText", "Expense Screen!");
             startActivity(intent);
 
-
         });
         historyButton.setOnClickListener((view) -> {
 
             Intent intent = new Intent(MainActivity.this, TransactionHistoryActivity.class);
             intent.putExtra("DummyText", "History Screen!");
             startActivity(intent);
-
 
         });
         profileButton.setOnClickListener((view) -> {
@@ -105,14 +130,11 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("DummyText", "Profile Screen!");
             startActivity(intent);
 
-
         });
         categoryManagementButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
-            intent.putExtra("DummyText", "Category Management Screen!");
+            Intent intent = new Intent(MainActivity.this, CategoriesManagerActivity.class);
             startActivity(intent);
-
 
         });
         supportButton.setOnClickListener((view) -> {
@@ -121,27 +143,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
-
-        test();
     }
 
-    private void test() {
-        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-
-        List<String> incomesCategorieslist = filesOperations.readCategories(this, true);
-        List<String> expencesCategorieslist = filesOperations.readCategories(this, false);
-
-        incomesCategorieslist.add("Salary");
-        incomesCategorieslist.add("Bonus");
-        incomesCategorieslist.add("Others");
-
-        expencesCategorieslist.add("Food");
-        expencesCategorieslist.add("Transport");
-        expencesCategorieslist.add("Entertainment");
-        expencesCategorieslist.add("House");
-        expencesCategorieslist.add("Children");
-        expencesCategorieslist.add("Others");
-
-        filesOperations.writeCategories(this, incomesCategorieslist, expencesCategorieslist);
-    }
 }
