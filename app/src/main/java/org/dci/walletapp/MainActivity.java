@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         categoryManagementButton.setOnClickListener((view) -> {
 
             Intent intent = new Intent(MainActivity.this, CategoriesManagerActivity.class);
-            intent.putExtra("DummyText", "Category Management Screen!");
             startActivity(intent);
 
         });
