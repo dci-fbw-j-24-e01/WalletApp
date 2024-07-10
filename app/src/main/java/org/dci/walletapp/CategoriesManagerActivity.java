@@ -96,6 +96,9 @@ public class CategoriesManagerActivity extends AppCompatActivity {
             }
             MainActivity.getIncomesCategorieslist().add(String.valueOf(inputCategory.getText()));
         }
+
+        inputCategory.setText("");
+        inputCategory.setHint("Add new Category");
         filesOperations.writeCategories(this);
         setRecyclerViewAdapter();
 
