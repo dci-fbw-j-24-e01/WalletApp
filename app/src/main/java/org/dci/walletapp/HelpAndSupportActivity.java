@@ -1,5 +1,6 @@
 package org.dci.walletapp;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ List<Question> questions = new QuestionsContainer().getQuestionsList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_help_and_support);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
