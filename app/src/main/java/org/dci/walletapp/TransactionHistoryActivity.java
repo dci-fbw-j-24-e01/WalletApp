@@ -1,5 +1,7 @@
 package org.dci.walletapp;
 
+import static org.dci.walletapp.StaticMethods.setSystemBarAppearance;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_transaction_history);
+        setSystemBarAppearance(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
