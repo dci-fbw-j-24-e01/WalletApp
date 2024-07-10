@@ -40,6 +40,7 @@ public class IncomeActivity extends AppCompatActivity {
     private String selectedCategory;
     private double amount;
     private String description;
+    private boolean isDateSelected;
     private LocalDateTime dateTime;
     private List<Transaction> transactionList;
 
@@ -57,6 +58,7 @@ public class IncomeActivity extends AppCompatActivity {
         setupFieldsIds();
         titleTextView.setText(R.string.new_income);
         calendar = Calendar.getInstance();
+        isDateSelected = false;
         setupCategoriesSpinner(true);
 
         dateEditText.setOnClickListener(view -> showDatePicker());
@@ -67,7 +69,10 @@ public class IncomeActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(view -> {
 
-            if (validateIncomeForm()) {
+            if (validateForm()) {
+            amount = Math.round(amount * 100.0) / 100.0;
+            amountEditText.setText(String.format(Locale.getDefault(), "%.2f €", Math.round(amount * 100.0) / 100.0));
+
                 boolean transactionFileExists = JsonFilesOperations.getInstance()
                         .fileExists(this, "transaction.json");
 
@@ -117,10 +122,16 @@ public class IncomeActivity extends AppCompatActivity {
     private void handleEditableFields(boolean isEditable) {
         amountEditText.setFocusable(isEditable);
         amountEditText.setClickable(isEditable);
+        amountEditText.setFocusableInTouchMode(isEditable);
+        amountEditText.setLongClickable(isEditable);
         descriptionEditText.setFocusable(isEditable);
         descriptionEditText.setClickable(isEditable);
+        descriptionEditText.setFocusableInTouchMode(isEditable);
+        descriptionEditText.setLongClickable(isEditable);
         dateEditText.setFocusable(isEditable);
         dateEditText.setClickable(isEditable);
+        dateEditText.setFocusableInTouchMode(isEditable);
+        dateEditText.setLongClickable(isEditable);
         categoriesSpinner.setEnabled(isEditable);
     }
 
@@ -133,12 +144,12 @@ public class IncomeActivity extends AppCompatActivity {
         spinnerCategories.add(3, "Others");
 
         // TODO: to uncomment and use when categories bug is fixed
-        //        List<String> spinnerCategories = JsonFilesOperations.getInstance().readCategories(this, isIncome);
-        //        if (isIncome) {
-        //            spinnerCategories.add(0, "Select a source");
-        //        } else {
-        //            spinnerCategories.add(0, "Select a category");
-        //        }
+//                List<String> spinnerCategories = JsonFilesOperations.getInstance().readCategories(this, isIncome);
+//                if (isIncome) {
+//                    spinnerCategories.add(0, "Select a source");
+//                } else {
+//                    spinnerCategories.add(0, "Select a category");
+//                }
 
         setupSpinnerAdapter(spinnerCategories);
 
@@ -166,7 +177,7 @@ public class IncomeActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateIncomeForm() {
+    private boolean validateForm() {
         boolean isValid = true;
 
         String amountString = amountEditText.getText().toString().trim();
@@ -174,21 +185,18 @@ public class IncomeActivity extends AppCompatActivity {
             isValid = false;
         } else {
             amount = Double.parseDouble(amountString);
-            amount = Math.round(amount * 100.0) / 100.0;
-            amountEditText.setText(String.format(Locale.getDefault(), "%.2f €", amount));
-        }
-
-        description = descriptionEditText.getText().toString().trim();
-        if (!validateDescription(description)) {
-            isValid = false;
-        } else {
-            descriptionEditText.setText(description);
         }
 
         if (!validateSpinnerCategory(selectedCategory, true)) {
             isValid = false;
         }
+
+        if (!isValidDate()) {
+            isValid = false;
+        }
+
         dateTime = getDateFromPicker();
+        description = descriptionEditText.getText().toString().trim();
 
         return isValid;
     }
@@ -227,12 +235,11 @@ public class IncomeActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean validateDescription(String descriptionEditText) {
-        if (descriptionEditText.isEmpty()) {
-            Toast.makeText(this, "Please enter a description text", Toast.LENGTH_SHORT).show();
-            return false;
+    private boolean isValidDate() {
+        if (!isDateSelected) {
+            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
         }
-        return true;
+        return isDateSelected;
     }
 
     private void showDatePicker() {
@@ -246,7 +253,13 @@ public class IncomeActivity extends AppCompatActivity {
                     calendar.set(Calendar.MONTH, selectedMonth);
                     calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
                     updateDateEditText();
+                    isDateSelected = true;
                 }, year, month, day);
+
+        datePickerDialog.setOnCancelListener(dialog -> {
+            isDateSelected = false;
+        });
+
         datePickerDialog.show();
     }
 
