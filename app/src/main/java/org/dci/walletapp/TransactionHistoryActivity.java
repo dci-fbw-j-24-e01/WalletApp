@@ -119,7 +119,8 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         }
         if (!filteredTransactions.isEmpty()) {
             editOrDeleteSwitch.setVisibility(View.VISIBLE);
-            transactionAdapter.updateTransactions(filteredTransactions);
+//            transactionAdapter.updateTransactions(filteredTransactions);
+            setAdapter(filteredTransactions);
             transactionList = JsonFilesOperations.getInstance().readTransactions(this);
         } else {
             editOrDeleteSwitch.setVisibility(View.INVISIBLE);
@@ -189,6 +190,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     }
 
     public void setAdapter(List<Transaction> list) {
-        listOfTransactions.setAdapter(new TransactionAdapter(this, list, true));
+        listOfTransactions.setAdapter(new TransactionAdapter(this, list, editOrDeleteSwitch.isChecked()));
     }
 }

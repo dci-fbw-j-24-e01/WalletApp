@@ -55,7 +55,7 @@ public class JsonFilesOperations {
     public List<Transaction> readTransactions(Context context) {
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
-        File file =  new File(directory, "transaction.json");
+        File file = new File(directory, "transaction.json");
         List<Transaction> transactionsList = new ArrayList<>();
         try (InputStream stream = Files.newInputStream(file.toPath())) {
             JsonNode rootNode = new ObjectMapper().readTree(stream);
