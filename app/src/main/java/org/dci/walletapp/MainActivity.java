@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         currentBalanceText = findViewById(R.id.currentBalanceText);
         currentBalance = findViewById(R.id.currentBalance);
 
-        welcomeTextView.setText("Welcome back, " + userName +"!");
+        welcomeTextView.setText("Welcome back, " + userName + "!");
         currentBalanceText.setText("You have a balance of:");
 
 
@@ -128,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
         });
         profileButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
-            intent.putExtra("DummyText", "Profile Screen!");
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
 
         });
