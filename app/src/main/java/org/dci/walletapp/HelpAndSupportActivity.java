@@ -1,5 +1,7 @@
 package org.dci.walletapp;
 
+import static org.dci.walletapp.StaticMethods.setSystemBarAppearance;
+
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -35,6 +37,7 @@ List<Question> questions = new QuestionsContainer().getQuestionsList();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_help_and_support);
+        setSystemBarAppearance(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
