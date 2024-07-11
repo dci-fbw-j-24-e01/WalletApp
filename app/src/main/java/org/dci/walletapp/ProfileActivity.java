@@ -73,11 +73,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
         setSystemBarAppearance(this);
-        // Handle window insets for better UI experience
         View mainLayout = findViewById(R.id.main);
         ViewCompat.setOnApplyWindowInsetsListener(mainLayout, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

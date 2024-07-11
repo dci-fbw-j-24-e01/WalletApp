@@ -48,7 +48,6 @@
                 android:layout_gravity="center|end"
                 android:src="@drawable/ui_icon_edit"
                 android:textSize="24sp"
-
                 />
         </FrameLayout>
 
