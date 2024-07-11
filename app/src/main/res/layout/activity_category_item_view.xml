@@ -20,25 +20,26 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="14sp">
+        android:paddingVertical="14sp"
+        android:paddingHorizontal="0sp">
 
         <ImageView
             android:id="@+id/imageEdit"
-            android:layout_width="48dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/edit"
             android:gravity="center_horizontal"
             android:scaleType="centerCrop"
-            android:src="@drawable/edit" />
+            android:src="@drawable/ui_icon_edit" />
 
         <ImageView
             android:id="@+id/imageDelete"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="3sp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10sp"
             android:contentDescription="@string/delete"
             android:gravity="center_horizontal"
             android:scaleType="centerCrop"
-            android:src="@drawable/delete" />
+            android:src="@drawable/ui_icon_delete" />
     </LinearLayout>
 </LinearLayout>
