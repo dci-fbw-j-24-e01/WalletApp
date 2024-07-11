@@ -34,22 +34,4 @@ public class StaticMethods {
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
     }
-
-    // Method to load profile from JSON file
-    public static Profile loadUsernameFromJSON(Context context) {
-        Profile profile = null;
-        ContextWrapper contextWrapper = new ContextWrapper(context);
-        File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
-        File file = new File(directory, "profile.json");
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            JsonNode jsonNode = mapper.readTree(file);
-            profile = mapper.treeToValue(jsonNode, Profile.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return profile;
-    }
 }

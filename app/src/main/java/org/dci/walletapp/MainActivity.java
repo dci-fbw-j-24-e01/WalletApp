@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         currentBalance = findViewById(R.id.currentBalance);
 
         // Load the username from JSON and update the welcome message
-        Profile profile = StaticMethods.loadUsernameFromJSON(this);
+        Profile profile = JsonFilesOperations.getInstance().readProfileFromJSON(this, new Profile());
         if (profile != null && profile.getName() != null) {
             welcomeTextView.setText("Welcome back, " + profile.getName() + "!");
         } else {
