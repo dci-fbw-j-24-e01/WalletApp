@@ -129,6 +129,7 @@ public class JsonFilesOperations {
             throw new RuntimeException("Failed to read categories file");
         }
     }
+
     public List<String> readCategoriesJSON(Context context, boolean isIncome) {
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
