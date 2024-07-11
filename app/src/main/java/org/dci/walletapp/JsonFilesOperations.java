@@ -133,7 +133,7 @@ public class JsonFilesOperations {
     public List<String> readCategoriesJSON(Context context, boolean isIncome) {
         ContextWrapper contextWrapper = new ContextWrapper(context);
         File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
-        File file = new File(directory, "categories.json");
+        File file =  new File(directory, "categories.json");
         List<String> categoriesList = new ArrayList<>();
         if (!file.exists()) {
             List<String> incomeCategories = Arrays.asList("Salary", "Bonus", "Others");
