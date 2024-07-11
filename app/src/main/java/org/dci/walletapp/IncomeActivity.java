@@ -139,20 +139,12 @@ public class IncomeActivity extends AppCompatActivity {
     }
 
     private void setupCategoriesSpinner(boolean isIncome) {
-        // TODO: to remove the next 5 lines when categories bug is fixed
-        List<String> spinnerCategories = new ArrayList<>(4);
-        spinnerCategories.add(0, "Select a source");
-        spinnerCategories.add(1, "Salary");
-        spinnerCategories.add(2, "Bonus");
-        spinnerCategories.add(3, "Others");
-
-        // TODO: to uncomment and use when categories bug is fixed
-//                List<String> spinnerCategories = JsonFilesOperations.getInstance().readCategories(this, isIncome);
-//                if (isIncome) {
-//                    spinnerCategories.add(0, "Select a source");
-//                } else {
-//                    spinnerCategories.add(0, "Select a category");
-//                }
+        List<String> spinnerCategories = JsonFilesOperations.getInstance().readCategoriesJSON(this, isIncome);
+        if (isIncome) {
+            spinnerCategories.add(0, "Select a source");
+        } else {
+            spinnerCategories.add(0, "Select a category");
+        }
 
         setupSpinnerAdapter(spinnerCategories);
 
