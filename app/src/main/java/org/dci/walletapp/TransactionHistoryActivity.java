@@ -54,7 +54,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
         double totalAmount = filesOperations.getTotalAmount(this);
 
         currentBalance = findViewById(R.id.currentBalance);
-        currentBalance.setText(String.valueOf(totalAmount));
+        currentBalance.setText(String.format("Current amount: %s €", totalAmount));
 
         // TODO: for testing only, needs to be removed later
         // everytime the activity opens without transactions in the JSON storage
