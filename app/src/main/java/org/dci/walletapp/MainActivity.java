@@ -92,7 +92,15 @@ public class MainActivity extends AppCompatActivity {
         currentBalanceText = findViewById(R.id.currentBalanceText);
         currentBalance = findViewById(R.id.currentBalance);
 
-        welcomeTextView.setText("Welcome back, " + userName + "!");
+        // Load the username from JSON and update the welcome message
+        Profile profile = StaticMethods.loadUsernameFromJSON(this);
+        if (profile != null && profile.getName() != null) {
+            welcomeTextView.setText("Welcome back, " + profile.getName() + "!");
+        } else {
+            welcomeTextView.setText("Welcome to your Wallet!"); // Fallback
+        }
+
+
         currentBalanceText.setText("You have a balance of:");
 
 
