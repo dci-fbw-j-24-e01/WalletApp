@@ -38,7 +38,7 @@ public class QuestionsContainer {
         questionsList.add(new Question("What's your dream job?", "Astronaut"));
         questionsList.add(new Question("Do you enjoy music?", "Very much"));
         questionsList.add(new Question("What's your favorite book?", "A book? What's that?"));
-
+        questionsList.add(new Question("Do you like traveling?", "Absolutely"));
 
 
 
