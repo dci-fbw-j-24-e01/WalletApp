@@ -144,4 +144,6 @@
     <color name="dark_blue">#00008B</color>
     <color name="navy">#000080</color>
     <color name="skyline_blue">#448AFF</color>
+    <color name="bright_emerald_green">#40E84F</color>
+    <color name="vivid_sky_blue">#3987E9</color>
 </resources>
