@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -35,6 +36,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
     private List<Transaction> transactionList;
     private TransactionAdapter transactionAdapter;
     private List<Transaction> filteredList;
+    private TextView currentBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +49,12 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+        transactionList = filesOperations.readTransactions(this);
+        double totalAmount = filesOperations.getTotalAmount(this);
 
-        transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-
+        currentBalance = findViewById(R.id.currentBalance);
+        currentBalance.setText(String.valueOf(totalAmount));
 
         // TODO: for testing only, needs to be removed later
         // everytime the activity opens without transactions in the JSON storage
