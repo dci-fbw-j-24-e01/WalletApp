@@ -97,7 +97,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
 
     private void deleteTransaction(int position) {
         Transaction transaction = transactionList.get(position);
-        activity.setAmountTextView();
         transactionDeleteHandler.onDelete(transaction);
+        activity.setAmountTextView();
     }
 }
