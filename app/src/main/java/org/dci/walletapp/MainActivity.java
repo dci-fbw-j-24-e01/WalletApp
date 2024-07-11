@@ -123,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
         addExpenseButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
-            intent.putExtra("DummyText", "Expense Screen!");
+            Intent intent = new Intent(MainActivity.this, ExpenseActivity.class);
             startActivity(intent);
 
         });

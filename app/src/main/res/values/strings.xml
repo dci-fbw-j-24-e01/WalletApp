@@ -9,6 +9,7 @@
     <string name="save">Save</string>
     <string name="go_back">Go Back</string>
     <string name="new_income">New Income</string>
+    <string name="new_expense">New Expense</string>
     <string name="new_transaction">New Transaction</string>
     <string name="hint_amount">0.00 €</string>
     <string name="description">Description: ...</string>
