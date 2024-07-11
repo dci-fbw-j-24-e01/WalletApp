@@ -144,4 +144,5 @@
 
 <!--Custom Colours-->
     <color name="skyline_blue">#448AFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
