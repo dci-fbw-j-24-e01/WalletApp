@@ -59,11 +59,14 @@
 
         <ImageView
             android:id="@+id/addCategoryImage"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"
+
             android:layout_width="50sp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginBottom="5sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/add" />
+
+            android:background="@drawable/ui_icon_add" />
 
     </LinearLayout>
 
