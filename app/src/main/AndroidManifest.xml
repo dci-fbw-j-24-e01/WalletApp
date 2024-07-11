@@ -28,6 +28,8 @@
 
         <activity
             android:name=".ExpenseActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".IncomeActivity"
