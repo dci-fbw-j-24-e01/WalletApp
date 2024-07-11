@@ -56,11 +56,7 @@
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />
-        <activity
-            android:name=".Transaction"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
         <activity
             android:name=".DummyActivity"
             android:exported="false"
