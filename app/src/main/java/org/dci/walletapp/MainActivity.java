@@ -33,10 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentBalanceText;
     private TextView currentBalance;
 
-
     private final String userName = "WalletUser";
     private double totalAmount;
-
 
     private static List<String> incomesCategorieslist;
     private static List<String> expensesCategorieslist;
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public static void setIncomesCategorieslist(List<String> incomesCategorieslist) {
         MainActivity.incomesCategorieslist = incomesCategorieslist;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,4 +152,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("de", "DE"));
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setMaximumFractionDigits(2);
+        totalAmount = JsonFilesOperations.getInstance().getTotalAmount(this);
+        String formattedBalance = numberFormat.format(totalAmount);
+
+        currentBalance.setText(formattedBalance);
+    }
 }

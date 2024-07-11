@@ -70,6 +70,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
 
         currentBalance = findViewById(R.id.currentBalance);
         currentBalance.setText(String.format("Balance: %s €", totalAmount));
+
     }
 
     private void setupSwitchListener() {
