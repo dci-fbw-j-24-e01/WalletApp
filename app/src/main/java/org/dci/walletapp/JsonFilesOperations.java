@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class JsonFilesOperations {
@@ -127,6 +128,34 @@ public class JsonFilesOperations {
         } catch (IOException e) {
             throw new RuntimeException("Failed to read categories file");
         }
+    }
+
+    public List<String> readCategoriesJSON(Context context, boolean isIncome) {
+        ContextWrapper contextWrapper = new ContextWrapper(context);
+        File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
+        File file = new File(directory, "categories.json");
+        List<String> categoriesList = new ArrayList<>();
+        if (!file.exists()) {
+            List<String> incomeCategories = Arrays.asList("Salary", "Bonus", "Others");
+            List<String> expenseCategories = Arrays.asList("Food", "Transport", "Entertainment", "House", "Children", "Others");
+            categoriesList.add("incomesCategories:" + incomeCategories);
+            categoriesList.add("expensesCategories:" + expenseCategories);
+            writeCategories(context);
+        }
+        try (InputStream stream = Files.newInputStream(file.toPath())) {
+            JsonNode categories;
+            if (isIncome) {
+                categories = new ObjectMapper().readTree(stream).get("incomesCategories");
+            } else {
+                categories = new ObjectMapper().readTree(stream).get("expensesCategories");
+            }
+            for (JsonNode category : categories) {
+                categoriesList.add(category.asText());
+            }
+        } catch (IOException e) {
+            return new ArrayList<String>();
+        }
+        return categoriesList;
     }
 
     public Profile readProfileFromJSON(Context context, Profile profile) {
