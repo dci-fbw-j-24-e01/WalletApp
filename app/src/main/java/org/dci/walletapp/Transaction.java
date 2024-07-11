@@ -13,12 +13,7 @@ public class Transaction {
 
 
     public Transaction(double amount, String description, boolean income, String category) {
-        this.amount = amount;
-        this.description = description;
-        this.income = income;
-        this.category = category;
-
-        dateTime = LocalDateTime.now();
+        this(amount, LocalDateTime.now(), description,income, category);
     }
 
     public Transaction(double amount, LocalDateTime dateTime, String description, boolean income, String category) {

@@ -33,10 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentBalanceText;
     private TextView currentBalance;
 
-
     private final String userName = "WalletUser";
-    private double currentBalanceEuro = 16180.33;
-
+    private double totalAmount;
 
     private static List<String> incomesCategorieslist;
     private static List<String> expensesCategorieslist;
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.incomesCategorieslist = incomesCategorieslist;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -76,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
 
+        totalAmount = filesOperations.getTotalAmount(this);
         filesOperations.readCategories(this, true);
         filesOperations.readCategories(this, false);
 
@@ -107,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("de", "DE"));
         numberFormat.setMinimumFractionDigits(2);
         numberFormat.setMaximumFractionDigits(2);
-        String formattedBalance = numberFormat.format(currentBalanceEuro);
+        String formattedBalance = numberFormat.format(totalAmount);
 
         currentBalance.setText(formattedBalance);
 
@@ -154,4 +152,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("de", "DE"));
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setMaximumFractionDigits(2);
+        totalAmount = JsonFilesOperations.getInstance().getTotalAmount(this);
+        String formattedBalance = numberFormat.format(totalAmount);
+
+        currentBalance.setText(formattedBalance);
+    }
 }

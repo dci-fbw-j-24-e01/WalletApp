@@ -1,5 +1,6 @@
 package org.dci.walletapp;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,6 +27,12 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder {
         deleteTransactionButton.setBackgroundTintList(null);
         editTransactionButton.setBackgroundTintList(null);
 
+        editTransactionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(EditTransactionActivity.class);
+            }
+        });
     }
 
     public TextView getAmountTextView() {

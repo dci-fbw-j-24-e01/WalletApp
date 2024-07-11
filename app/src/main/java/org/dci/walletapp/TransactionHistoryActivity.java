@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -35,6 +36,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
     private List<Transaction> transactionList;
     private TransactionAdapter transactionAdapter;
     private List<Transaction> filteredList;
+    private TextView currentBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +50,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
             return insets;
         });
 
-        transactionList = JsonFilesOperations.getInstance().readTransactions(this);
-
-
-        // TODO: for testing only, needs to be removed later
-        // everytime the activity opens without transactions in the JSON storage
-        // it will add some transactions for quick testing
-        if (transactionList.isEmpty()) {
-            testToWriteDataInJSON();
-        }
-
+        setAmountTextView();
 
         filteredList = new ArrayList<>();
         filteredList.addAll(transactionList);
@@ -67,6 +60,16 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
         setupSpinner();
         setupSwitchListener();
         lineDividerBetweenTransactions();
+
+    }
+
+    public void setAmountTextView() {
+        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
+        transactionList = filesOperations.readTransactions(this);
+        double totalAmount = filesOperations.getTotalAmount(this);
+
+        currentBalance = findViewById(R.id.currentBalance);
+        currentBalance.setText(String.format("Balance: %s €", totalAmount));
 
     }
 
@@ -166,47 +169,6 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
     }
 
 
-    private void testToWriteDataInJSON() {
-
-        List<Transaction> transactions = new ArrayList<>();
-        String dateTimeString = "2024-07-02T15:14:00.639424";
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-        Transaction transaction = new Transaction(100,
-                LocalDateTime.parse(dateTimeString, formatter),
-                "Test Description",
-                false,
-                "Test");
-        Transaction transaction1 = new Transaction(200,
-                LocalDateTime.parse(dateTimeString, formatter),
-                "Test Description",
-                false,
-                "Test");
-        Transaction transaction2 = new Transaction(300,
-                LocalDateTime.parse(dateTimeString, formatter),
-                "Test Description",
-                true,
-                "Test");
-        Transaction transaction3 = new Transaction(400.5,
-                LocalDateTime.parse(dateTimeString, formatter),
-                "Test Description",
-                false,
-                "Test");
-        Transaction transaction4 = new Transaction(500,
-                LocalDateTime.parse(dateTimeString, formatter),
-                "Test Description",
-                true,
-                "Test");
-        transactions.add(transaction);
-        transactions.add(transaction1);
-        transactions.add(transaction2);
-        transactions.add(transaction3);
-        transactions.add(transaction4);
-        JsonFilesOperations filesOperations = JsonFilesOperations.getInstance();
-        filesOperations.writeTransactions(this, transactions);
-        transactionList = transactions;
-    }
-
     @Override
     public void onDelete(Transaction transaction) {
         transactionList.remove(transaction);
@@ -214,5 +176,9 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tra
         listOfTransactions.setAdapter(new TransactionAdapter(this, filteredList, editOrDeleteSwitch.isChecked(), this));
 
         JsonFilesOperations.getInstance().writeTransactions(this, transactionList);
+    }
+
+    public TextView getCurrentBalance() {
+        return currentBalance;
     }
 }

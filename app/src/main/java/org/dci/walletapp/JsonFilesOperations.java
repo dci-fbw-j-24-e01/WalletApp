@@ -76,7 +76,7 @@ public class JsonFilesOperations {
                 ));
             }
         } catch (IOException e) {
-            return new ArrayList<Transaction>();
+            return new ArrayList<>();
         }
         return transactionsList;
     }
@@ -183,4 +183,17 @@ public class JsonFilesOperations {
 
         return profile;
     }
+
+    public double getTotalAmount(Context context) {
+        double totalAmount = 0;
+        for (Transaction transaction : readTransactions(context)) {
+            if (!transaction.isIncome()) {
+                totalAmount -= transaction.getAmount();
+            } else {
+                totalAmount += transaction.getAmount();
+            }
+        }
+        return totalAmount;
+    }
+
 }

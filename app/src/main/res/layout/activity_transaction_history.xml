@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".TransactionHistoryActivity">
 
@@ -13,50 +14,62 @@
         android:id="@+id/titleTransactionHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:gravity="center"
-        android:layout_marginHorizontal="10dp"
         android:text="Transaction History"
         android:textSize="35sp"
         android:textStyle="bold" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginTop="40dp">
 
-    <Spinner
-        android:id="@+id/spinnerTransactionsCategory"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
+    <TextView
+        android:id="@+id/currentBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_weight="0.5"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Balance (Amount)"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/editOrDeleteSwitch"
-
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_weight="1"
-        android:text="Edit/Delete" />
-
-
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listOfTransactions"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinnerTransactionsCategory"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/editOrDeleteSwitch"
+
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="Edit/Delete" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listOfTransactions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>
