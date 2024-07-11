@@ -1,7 +1,5 @@
 package org.dci.walletapp;
 
-import static org.dci.walletapp.StaticMethods.setSystemBarAppearance;
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -19,18 +17,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class IncomeActivity extends AppCompatActivity {
-
+public class ExpenseActivity extends AppCompatActivity {
     private TextView titleTextView;
     private EditText amountEditText;
     private Spinner categoriesSpinner;
@@ -52,19 +47,19 @@ public class IncomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_income);
-        setSystemBarAppearance(this);
+        setContentView(R.layout.activity_expense);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+
         setupFieldsIds();
-        titleTextView.setText(R.string.new_income);
+        titleTextView.setText(R.string.new_expense);
         calendar = Calendar.getInstance();
         isDateSelected = false;
-        setupCategoriesSpinner(true);
+        setupCategoriesSpinner(false);
 
         dateEditText.setOnClickListener(view -> showDatePicker());
 
@@ -75,8 +70,8 @@ public class IncomeActivity extends AppCompatActivity {
         saveButton.setOnClickListener(view -> {
 
             if (validateForm()) {
-            amount = Math.round(amount * 100.0) / 100.0;
-            amountEditText.setText(String.format(Locale.getDefault(), "%.2f €", Math.round(amount * 100.0) / 100.0));
+                amount = Math.round(amount * 100.0) / 100.0;
+                amountEditText.setText(String.format(Locale.getDefault(), "%.2f €", Math.round(amount * 100.0) / 100.0));
 
                 boolean transactionFileExists = JsonFilesOperations.getInstance()
                         .fileExists(this, "transaction.json");
@@ -87,9 +82,9 @@ public class IncomeActivity extends AppCompatActivity {
                     transactionList = new ArrayList<>();
                 }
 
-                saveTransaction(transactionList, true);
+                saveTransaction(transactionList, false);
                 isTransactionEditable(false);
-                Toast.makeText(this, "New income saved.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "New expense saved.", Toast.LENGTH_SHORT).show();
             }
         });
     }

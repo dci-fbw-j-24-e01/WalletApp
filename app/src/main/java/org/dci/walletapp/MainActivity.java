@@ -93,7 +93,15 @@ public class MainActivity extends AppCompatActivity {
         currentBalanceText = findViewById(R.id.currentBalanceText);
         currentBalance = findViewById(R.id.currentBalance);
 
-        welcomeTextView.setText("Welcome back, " + userName + "!");
+        // Load the username from JSON and update the welcome message
+        Profile profile = JsonFilesOperations.getInstance().readProfileFromJSON(this, new Profile());
+        if (profile != null && profile.getName() != null) {
+            welcomeTextView.setText("Welcome back, " + profile.getName() + "!");
+        } else {
+            welcomeTextView.setText("Welcome to your Wallet!"); // Fallback
+        }
+
+
         currentBalanceText.setText("You have a balance of:");
 
 
@@ -116,8 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         addExpenseButton.setOnClickListener((view) -> {
 
-            Intent intent = new Intent(MainActivity.this, DummyActivity.class);
-            intent.putExtra("DummyText", "Expense Screen!");
+            Intent intent = new Intent(MainActivity.this, ExpenseActivity.class);
             startActivity(intent);
 
         });

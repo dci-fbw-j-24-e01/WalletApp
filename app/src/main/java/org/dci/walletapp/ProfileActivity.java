@@ -1,10 +1,13 @@
 package org.dci.walletapp;
 
+import static org.dci.walletapp.StaticMethods.setSystemBarAppearance;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -71,8 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        // Handle window insets for better UI experience
+        setSystemBarAppearance(this);
         View mainLayout = findViewById(R.id.main);
         ViewCompat.setOnApplyWindowInsetsListener(mainLayout, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -86,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         cancelButton = findViewById(R.id.cancelButton);
         goBackButton = findViewById(R.id.backButton);
-        Button editImageButton = findViewById(R.id.editImageButton);
+        ImageView editImageButton = findViewById(R.id.editImageButton);
 
         // Autofill suggestion to the user for name and email if previously typed on your phone
         nameEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_YES);
