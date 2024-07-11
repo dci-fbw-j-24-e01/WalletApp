@@ -90,13 +90,7 @@ public class MainActivity extends AppCompatActivity {
         currentBalanceText = findViewById(R.id.currentBalanceText);
         currentBalance = findViewById(R.id.currentBalance);
 
-        // Load the username from JSON and update the welcome message
-        Profile profile = JsonFilesOperations.getInstance().readProfileFromJSON(this, new Profile());
-        if (profile != null && profile.getName() != null) {
-            welcomeTextView.setText("Welcome back, " + profile.getName() + "!");
-        } else {
-            welcomeTextView.setText("Welcome to your Wallet!"); // Fallback
-        }
+
 
 
         currentBalanceText.setText("You have a balance of:");
@@ -155,6 +149,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Load the username from JSON and update the welcome message
+        Profile profile = JsonFilesOperations.getInstance().readProfileFromJSON(this, new Profile());
+        if (profile != null && profile.getName() != null) {
+            welcomeTextView.setText("Welcome back, " + profile.getName() + "!");
+        } else {
+            welcomeTextView.setText("Welcome to your Wallet!"); // Fallback
+        }
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("de", "DE"));
         numberFormat.setMinimumFractionDigits(2);
