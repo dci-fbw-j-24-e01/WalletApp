@@ -43,6 +43,9 @@ public class ExpenseActivity extends AppCompatActivity {
     private LocalDateTime dateTime;
     private List<Transaction> transactionList;
 
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    String date = sdf.format(Calendar.getInstance().getTime());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,7 @@ public class ExpenseActivity extends AppCompatActivity {
         setupCategoriesSpinner(false);
 
         dateEditText.setOnClickListener(view -> showDatePicker());
+        dateEditText.setText(date);
 
         goBackButton.setOnClickListener(view -> finish());
 
@@ -184,7 +188,7 @@ public class ExpenseActivity extends AppCompatActivity {
         }
 
         if (!isValidDate()) {
-            isValid = false;
+            isValid = true;
         }
 
         dateTime = getDateFromPicker();
@@ -228,9 +232,9 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private boolean isValidDate() {
-        if (!isDateSelected) {
-            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
-        }
+//        if (!isDateSelected) {
+//            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
+//        }
         return isDateSelected;
     }
 
