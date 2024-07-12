@@ -43,7 +43,7 @@ public class ExpenseActivity extends AppCompatActivity {
     private LocalDateTime dateTime;
     private List<Transaction> transactionList;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     String date = sdf.format(Calendar.getInstance().getTime());
 
     @Override
