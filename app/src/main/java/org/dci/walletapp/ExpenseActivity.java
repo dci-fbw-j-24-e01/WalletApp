@@ -45,7 +45,7 @@ public class ExpenseActivity extends AppCompatActivity {
     private List<Transaction> transactionList;
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    String date = simpleDateFormat.format(Calendar.getInstance().getTime());
+    String currentDate = simpleDateFormat.format(Calendar.getInstance().getTime());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class ExpenseActivity extends AppCompatActivity {
         setupCategoriesSpinner(false);
 
         dateEditText.setOnClickListener(view -> showDatePicker());
-        dateEditText.setText(date);
+        dateEditText.setText(currentDate);
 
         goBackButton.setOnClickListener(view -> finish());
 
