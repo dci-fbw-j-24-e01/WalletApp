@@ -60,7 +60,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="10dp"
             android:ems="10"
-            android:focusable="false"
+            android:focusable="true"
             android:gravity="center"
             android:hint="@string/date_hint"
             android:inputType="date"

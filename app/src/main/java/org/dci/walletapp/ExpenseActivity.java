@@ -1,6 +1,7 @@
 package org.dci.walletapp;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -232,9 +233,9 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private boolean isValidDate() {
-//        if (!isDateSelected) {
-//            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
-//        }
+        if (!isDateSelected) {
+            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
+        }
         return isDateSelected;
     }
 
@@ -242,19 +243,23 @@ public class ExpenseActivity extends AppCompatActivity {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hh = calendar.get(Calendar.HOUR_OF_DAY);
+        int mm = calendar.get(Calendar.MINUTE);
+
+
+
+
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
-                    calendar.set(Calendar.YEAR, selectedYear);
-                    calendar.set(Calendar.MONTH, selectedMonth);
-                    calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
-                    updateDateEditText();
-                    isDateSelected = true;
+                    calendar.set(selectedYear, selectedMonth, selectedDay);
+                    new TimePickerDialog(this, (view1, hourOfDay, minute) -> {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+                        updateDateEditText();
+                        isDateSelected = true;
+                    }, hh, mm,  true).show();
                 }, year, month, day);
-
-        datePickerDialog.setOnCancelListener(dialog -> {
-            isDateSelected = false;
-        });
 
         datePickerDialog.show();
     }
