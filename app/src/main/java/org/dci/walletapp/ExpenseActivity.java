@@ -242,9 +242,9 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private boolean isValidDate() {
-        if (!isDateSelected) {
-            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
-        }
+//        if (!isDateSelected) {
+//            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
+//        }
         return isDateSelected;
     }
 
@@ -257,11 +257,9 @@ public class ExpenseActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     calendar.set(selectedYear, selectedMonth, selectedDay);
-
                     updateDateEditText();
                     isDateSelected = true;
                 }, year, month, day);
-
         datePickerDialog.show();
     }
 
@@ -269,11 +267,9 @@ public class ExpenseActivity extends AppCompatActivity {
 
         int hh = calendar.get(Calendar.HOUR_OF_DAY);
         int mm = calendar.get(Calendar.MINUTE);
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
                     calendar.set(hourOfDay, minute);
-
                     updateTimeEditText();
                     isDateSelected = true;
                 }, hh, mm, true);
