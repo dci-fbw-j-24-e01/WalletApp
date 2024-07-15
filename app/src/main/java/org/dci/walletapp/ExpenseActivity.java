@@ -18,6 +18,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.timepicker.TimeFormat;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -31,6 +33,7 @@ public class ExpenseActivity extends AppCompatActivity {
     private EditText amountEditText;
     private Spinner categoriesSpinner;
     private EditText dateEditText;
+    private EditText timeEditText;
 
     private EditText descriptionEditText;
     private Button saveButton;
@@ -44,8 +47,11 @@ public class ExpenseActivity extends AppCompatActivity {
     private LocalDateTime dateTime;
     private List<Transaction> transactionList;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
     String currentDate = simpleDateFormat.format(Calendar.getInstance().getTime());
+    SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm");
+    String currentTime = simpleTimeFormat.format(Calendar.getInstance().getTime());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,8 @@ public class ExpenseActivity extends AppCompatActivity {
 
         dateEditText.setOnClickListener(view -> showDatePicker());
         dateEditText.setText(currentDate);
+        timeEditText.setOnClickListener(view -> showTimePicker());
+        timeEditText.setText(currentTime);
 
         goBackButton.setOnClickListener(view -> finish());
 
@@ -99,6 +107,7 @@ public class ExpenseActivity extends AppCompatActivity {
         amountEditText = findViewById(R.id.amountEditText);
         categoriesSpinner = findViewById(R.id.categoriesSpinner);
         dateEditText = findViewById(R.id.dateEditText);
+        timeEditText = findViewById(R.id.timeEditText);
         descriptionEditText = findViewById(R.id.descriptionEditText);
         saveButton = findViewById(R.id.saveButton);
         cancelButton = findViewById(R.id.cancelButton);
@@ -243,16 +252,12 @@ public class ExpenseActivity extends AppCompatActivity {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int hh = calendar.get(Calendar.HOUR_OF_DAY);
-        int mm = calendar.get(Calendar.MINUTE);
+
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     calendar.set(selectedYear, selectedMonth, selectedDay);
-                    new TimePickerDialog(this, (view1, hourOfDay, minute) -> {
-                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-                    }, hh, mm,  true).show();
+
                     updateDateEditText();
                     isDateSelected = true;
                 }, year, month, day);
@@ -260,10 +265,32 @@ public class ExpenseActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    private void showTimePicker(){
+
+        int hh = calendar.get(Calendar.HOUR_OF_DAY);
+        int mm = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                (view, hourOfDay, minute) -> {
+                    calendar.set(hourOfDay, minute);
+
+                    updateTimeEditText();
+                    isDateSelected = true;
+                }, hh, mm, true);
+
+        timePickerDialog.show();
+    }
+
     private void updateDateEditText() {
-        String dateFormat = "dd/MM/yyyy HH:mm";
+        String dateFormat ="dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
         dateEditText.setText(simpleDateFormat.format(calendar.getTime()));
+    }
+
+    private void updateTimeEditText() {
+        String timeFormat ="HH:mm";
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat, Locale.ENGLISH);
+        timeEditText.setText(simpleTimeFormat.format(calendar.getTime()));
     }
 
     private LocalDateTime getDateFromPicker() {
