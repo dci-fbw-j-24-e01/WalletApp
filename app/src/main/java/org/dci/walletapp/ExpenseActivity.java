@@ -44,8 +44,8 @@ public class ExpenseActivity extends AppCompatActivity {
     private LocalDateTime dateTime;
     private List<Transaction> transactionList;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    String date = sdf.format(Calendar.getInstance().getTime());
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    String date = simpleDateFormat.format(Calendar.getInstance().getTime());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,10 +246,6 @@ public class ExpenseActivity extends AppCompatActivity {
         int hh = calendar.get(Calendar.HOUR_OF_DAY);
         int mm = calendar.get(Calendar.MINUTE);
 
-
-
-
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     calendar.set(selectedYear, selectedMonth, selectedDay);
@@ -265,7 +261,7 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private void updateDateEditText() {
-        String dateFormat = "dd/MM/yyyy";
+        String dateFormat = "dd/MM/yyyy HH:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
         dateEditText.setText(simpleDateFormat.format(calendar.getTime()));
     }
