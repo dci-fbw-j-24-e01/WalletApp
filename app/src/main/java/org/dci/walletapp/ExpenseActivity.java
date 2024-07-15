@@ -252,9 +252,9 @@ public class ExpenseActivity extends AppCompatActivity {
                     new TimePickerDialog(this, (view1, hourOfDay, minute) -> {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
-                        updateDateEditText();
-                        isDateSelected = true;
                     }, hh, mm,  true).show();
+                    updateDateEditText();
+                    isDateSelected = true;
                 }, year, month, day);
 
         datePickerDialog.show();
