@@ -3,6 +3,7 @@ package org.dci.walletapp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -275,7 +277,6 @@ public class ExpenseActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     calendar.set(selectedYear, selectedMonth, selectedDay);
@@ -289,10 +290,19 @@ public class ExpenseActivity extends AppCompatActivity {
 
         int hh = calendar.get(Calendar.HOUR_OF_DAY);
         int mm = calendar.get(Calendar.MINUTE);
+
+//        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+//                new TimePickerDialog.OnTimeSetListener() {
+//                    @Override
+//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                    timeEditText.setText(hourOfDay + ":" +  minute);
+//                    }
+//                }, hh, mm, true);
+
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
-                    calendar.set(hourOfDay, minute);
-                    updateTimeEditText();
+                    timeEditText.setText(hourOfDay + ":" + minute);
+//                    updateTimeEditText();
                     isDateSelected = true;
                 }, hh, mm, true);
 
@@ -307,8 +317,10 @@ public class ExpenseActivity extends AppCompatActivity {
 
     private void updateTimeEditText() {
         String timeFormat ="HH:mm";
-        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat);
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat, Locale.ENGLISH);
+        Log.d("Error", simpleTimeFormat.format(calendar.getTime()));
         timeEditText.setText(simpleTimeFormat.format(calendar.getTime()));
+
     }
 
     private LocalDateTime getDateFromPicker() {
