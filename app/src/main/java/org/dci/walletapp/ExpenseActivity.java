@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ public class ExpenseActivity extends AppCompatActivity {
     private Spinner categoriesSpinner;
     private EditText dateEditText;
     private EditText timeEditText;
+    private ImageView timeEditTextImg;
+    private ImageView dateEditTextImg;
 
     private EditText descriptionEditText;
     private Button saveButton;
@@ -71,9 +74,11 @@ public class ExpenseActivity extends AppCompatActivity {
         isDateSelected = false;
         setupCategoriesSpinner(false);
 
-        dateEditText.setOnClickListener(view -> showDatePicker());
+//        dateEditText.setOnClickListener(view -> showDatePicker());
+        dateEditTextImg.setOnClickListener(view -> showDatePicker());
         dateEditText.setText(currentDate);
-        timeEditText.setOnClickListener(view -> showTimePicker());
+//        timeEditText.setOnClickListener(view -> showTimePicker());
+        timeEditTextImg.setOnClickListener(view -> showTimePicker());
         timeEditText.setText(currentTime);
 
         goBackButton.setOnClickListener(view -> finish());
@@ -103,6 +108,8 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private void setupFieldsIds() {
+        dateEditTextImg = findViewById(R.id.dateEditTextImg);
+        timeEditTextImg = findViewById(R.id.timeEditTextImg);
         titleTextView = findViewById(R.id.titleTextView);
         amountEditText = findViewById(R.id.amountEditText);
         categoriesSpinner = findViewById(R.id.categoriesSpinner);
@@ -146,6 +153,21 @@ public class ExpenseActivity extends AppCompatActivity {
         dateEditText.setClickable(isEditable);
         dateEditText.setFocusableInTouchMode(isEditable);
         dateEditText.setLongClickable(isEditable);
+        timeEditText.setFocusable(isEditable);
+        timeEditText.setClickable(isEditable);
+        timeEditText.setFocusableInTouchMode(isEditable);
+        timeEditText.setLongClickable(isEditable);
+
+        timeEditTextImg.setFocusable(isEditable);
+        timeEditTextImg.setClickable(isEditable);
+        timeEditTextImg.setFocusableInTouchMode(isEditable);
+        timeEditTextImg.setLongClickable(isEditable);
+
+        dateEditTextImg.setFocusable(isEditable);
+        dateEditTextImg.setClickable(isEditable);
+        dateEditTextImg.setFocusableInTouchMode(isEditable);
+        dateEditTextImg.setLongClickable(isEditable);
+
         categoriesSpinner.setEnabled(isEditable);
     }
 
@@ -285,7 +307,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
     private void updateTimeEditText() {
         String timeFormat ="HH:mm";
-        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat, Locale.ENGLISH);
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat);
         timeEditText.setText(simpleTimeFormat.format(calendar.getTime()));
     }
 
