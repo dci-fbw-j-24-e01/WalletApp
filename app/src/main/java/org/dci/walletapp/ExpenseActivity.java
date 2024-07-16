@@ -279,7 +279,10 @@ public class ExpenseActivity extends AppCompatActivity {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
-                    calendar.set(selectedYear, selectedMonth, selectedDay);
+            calendar.set(Calendar.YEAR, selectedYear);
+            calendar.set(Calendar.MONTH, selectedMonth);
+            calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
+
                     updateDateEditText();
                     isDateSelected = true;
                 }, year, month, day);
@@ -301,8 +304,9 @@ public class ExpenseActivity extends AppCompatActivity {
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
-                    timeEditText.setText(hourOfDay + ":" + minute);
-//                    updateTimeEditText();
+                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    calendar.set(Calendar.MINUTE, minute);
+                    updateTimeEditText();
                     isDateSelected = true;
                 }, hh, mm, true);
 
