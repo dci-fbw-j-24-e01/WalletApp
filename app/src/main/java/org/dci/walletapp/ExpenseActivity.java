@@ -30,17 +30,19 @@ public class ExpenseActivity extends AppCompatActivity {
     private EditText amountEditText;
     private Spinner categoriesSpinner;
     private EditText dateEditText;
-
     private EditText descriptionEditText;
     private Button saveButton;
     private Button cancelButton;
     private Button goBackButton;
-    private Calendar calendar;
-    private String selectedCategory;
+
     private double amount;
-    private String description;
-    private boolean isDateSelected;
+    private String selectedCategory;
+    private Calendar calendar;
     private LocalDateTime dateTime;
+    private String description;
+
+    private boolean isDateSelected;
+
     private List<Transaction> transactionList;
 
     @Override
@@ -54,12 +56,20 @@ public class ExpenseActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        // Give this method a better name
+        // something like findAllViewsById
         setupFieldsIds();
+
         titleTextView.setText(R.string.new_expense);
         calendar = Calendar.getInstance();
+
+        // unneeded boolean instance variable is false by default, all primitives are 0 when they are declared as instance variables
         isDateSelected = false;
-        setupCategoriesSpinner(false);
+
+        // WHy not create an ENUM for Income and Expense
+        // Even though it's just 2, it really helps with readability
+        setupCategoriesSpinner();
+
 
         dateEditText.setOnClickListener(view -> showDatePicker());
 
@@ -71,7 +81,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
             if (validateForm()) {
                 amount = Math.round(amount * 100.0) / 100.0;
-                amountEditText.setText(String.format(Locale.getDefault(), "%.2f €", Math.round(amount * 100.0) / 100.0));
+                amountEditText.setText(formatCurrency(amount));
 
                 boolean transactionFileExists = JsonFilesOperations.getInstance()
                         .fileExists(this, "transaction.json");
@@ -88,6 +98,12 @@ public class ExpenseActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private String formatCurrency(double amount) {
+        return String.format(Locale.getDefault(), "%.2f €", Math.round(amount * 100.0) / 100.0);
+    }
+
 
     private void setupFieldsIds() {
         titleTextView = findViewById(R.id.titleTextView);
@@ -135,16 +151,15 @@ public class ExpenseActivity extends AppCompatActivity {
         categoriesSpinner.setEnabled(isEditable);
     }
 
-    private void setupCategoriesSpinner(boolean isIncome) {
-        List<String> spinnerCategories = JsonFilesOperations.getInstance().readCategoriesJSON(this, isIncome);
-        if (isIncome) {
-            spinnerCategories.add(0, "Select a source");
-        } else {
-            spinnerCategories.add(0, "Select a category");
-        }
+    private void setupCategoriesSpinner() {
+        List<String> spinnerCategories =
+                JsonFilesOperations.getInstance().readCategoriesJSON(this, false);
+        spinnerCategories.add(0, "Select a category");
 
-        setupSpinnerAdapter(spinnerCategories);
+        ArrayAdapter<String> spinnerCategoriesAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, spinnerCategories);
 
+        categoriesSpinner.setAdapter(spinnerCategoriesAdapter);
         categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -160,12 +175,6 @@ public class ExpenseActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-    }
-
-    private void setupSpinnerAdapter(List<String> spinnerCategories) {
-        ArrayAdapter<String> spinnerCategoriesAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, spinnerCategories);
-        categoriesSpinner.setAdapter(spinnerCategoriesAdapter);
     }
 
 
@@ -187,6 +196,12 @@ public class ExpenseActivity extends AppCompatActivity {
             isValid = false;
         }
 
+        // Good code documents itself... easiest way to do this is by creating
+        // good function names and good variables names
+
+        // functions should not have side effects
+
+//        TODO: this should go somewhere else
         dateTime = getDateFromPicker();
         description = descriptionEditText.getText().toString().trim();
 
@@ -227,6 +242,7 @@ public class ExpenseActivity extends AppCompatActivity {
         return true;
     }
 
+    // validating and checking if it was selected is not the same thing
     private boolean isValidDate() {
         if (!isDateSelected) {
             Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
