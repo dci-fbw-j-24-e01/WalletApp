@@ -3,16 +3,20 @@ package org.dci.walletapp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,10 +25,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.timepicker.TimeFormat;
+
+import com.google.android.material.datepicker.CalendarConstraints;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +57,7 @@ public class ExpenseActivity extends AppCompatActivity {
     private boolean isDateSelected;
     private LocalDateTime dateTime;
     private List<Transaction> transactionList;
+
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -221,9 +228,11 @@ public class ExpenseActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        if (!isValidDate()) {
-            isValid = true;
-        }
+//        if (!isValidDate()) {
+//            isValid = true;
+//        }
+
+
 
         dateTime = getDateFromPicker();
         description = descriptionEditText.getText().toString().trim();
@@ -269,10 +278,13 @@ public class ExpenseActivity extends AppCompatActivity {
 //        if (!isDateSelected) {
 //            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
 //        }
+//
+
         return isDateSelected;
     }
 
     private void showDatePicker() {
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -283,10 +295,13 @@ public class ExpenseActivity extends AppCompatActivity {
             calendar.set(Calendar.MONTH, selectedMonth);
             calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
 
+
                     updateDateEditText();
                     isDateSelected = true;
                 }, year, month, day);
         datePickerDialog.show();
+
+
     }
 
     private void showTimePicker(){
@@ -314,12 +329,22 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private void updateDateEditText() {
-        String dateFormat ="dd/MM/yyyy";
+
+        String year = "yyyy";
+        String month = "MM";
+        String day = "dd";
+
+
+        String dateFormat = day + "/" + month + "/" + year;
+//        String dateFormat = String.format("%02d", day) + "." + String.format("%02d", month ) + "." + year;
+//        String dateFormat ="dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
         dateEditText.setText(simpleDateFormat.format(calendar.getTime()));
+
     }
 
     private void updateTimeEditText() {
+
         String timeFormat ="HH:mm";
         SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat, Locale.ENGLISH);
         Log.d("Error", simpleTimeFormat.format(calendar.getTime()));

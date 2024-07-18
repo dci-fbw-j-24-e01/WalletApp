@@ -57,6 +57,7 @@
     android:layout_gravity="center">
 
     <TextView
+
         android:id="@+id/textView5"
         android:layout_width="94dp"
         android:layout_height="wrap_content"
@@ -135,7 +136,7 @@
             android:focusable="true"
             android:gravity="center"
             android:hint="@string/time_hint"
-            android:inputType="date"
+            android:inputType="time"
             android:textColorHint="@color/deep_space_sparkle"
             android:textSize="18sp" />
 
