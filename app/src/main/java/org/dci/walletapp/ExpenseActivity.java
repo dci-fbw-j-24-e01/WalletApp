@@ -309,13 +309,7 @@ public class ExpenseActivity extends AppCompatActivity {
         int hh = calendar.get(Calendar.HOUR_OF_DAY);
         int mm = calendar.get(Calendar.MINUTE);
 
-//        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-//                new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                    timeEditText.setText(hourOfDay + ":" +  minute);
-//                    }
-//                }, hh, mm, true);
+
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
