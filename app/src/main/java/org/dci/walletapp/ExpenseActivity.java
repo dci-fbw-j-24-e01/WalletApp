@@ -26,8 +26,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-import com.google.android.material.datepicker.CalendarConstraints;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -84,12 +82,12 @@ public class ExpenseActivity extends AppCompatActivity {
         isDateSelected = false;
         setupCategoriesSpinner(false);
 
-//        dateEditText.setOnClickListener(view -> showDatePicker());
+
         dateEditTextImg.setOnClickListener(view -> showDatePicker());
         dateEditText.setText(currentDate);
         dateEditText.addTextChangedListener(textWatcher);
 
-//        timeEditText.setOnClickListener(view -> showTimePicker());
+
         timeEditTextImg.setOnClickListener(view -> showTimePicker());
         timeEditText.setText(currentTime);
 
