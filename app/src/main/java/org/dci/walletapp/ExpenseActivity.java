@@ -28,6 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
@@ -97,7 +98,13 @@ public class ExpenseActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(view -> finish());
 
         saveButton.setOnClickListener(view -> {
-
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+            String dateString = dateEditText.getText().toString() + " " + timeEditText.getText().toString();
+            try {
+                calendar.setTime(sdf.parse(dateString));// all done
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             if (validateForm()) {
                 amount = Math.round(amount * 100.0) / 100.0;
                 amountEditText.setText(String.format(Locale.getDefault(), "%.2f €", Math.round(amount * 100.0) / 100.0));
@@ -345,9 +352,9 @@ public class ExpenseActivity extends AppCompatActivity {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
-            calendar.set(Calendar.YEAR, selectedYear);
-            calendar.set(Calendar.MONTH, selectedMonth);
-            calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
+                    calendar.set(Calendar.YEAR, selectedYear);
+                    calendar.set(Calendar.MONTH, selectedMonth);
+                    calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
 
 
                     updateDateEditText();
