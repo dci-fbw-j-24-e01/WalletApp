@@ -14,6 +14,7 @@
     <string name="hint_amount">0.00 €</string>
     <string name="description">Description: ...</string>
     <string name="date_hint">Select a date</string>
+    <string name="time_hint">Select a time</string>
     <string name="amount">Amount</string>
     <string name="date">Date</string>
     <string name="category">Category</string>

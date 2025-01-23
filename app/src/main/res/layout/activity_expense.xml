@@ -40,6 +40,7 @@
             android:maxLength="24"
             android:textSize="24sp" />
 
+
         <Spinner
             android:id="@+id/categoriesSpinner"
             android:layout_width="wrap_content"
@@ -49,24 +50,105 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="10dp"
             android:textSize="16sp" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center">
+
+    <TextView
+
+        android:id="@+id/textView5"
+        android:layout_width="94dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="10dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="@string/date_hint"
+        android:minHeight="48dp"
+        android:text="Date"
+        android:textColorHint="@color/deep_space_sparkle"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/dateEditText"
+        android:layout_width="219dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginVertical="10dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:focusable="true"
+        android:gravity="center"
+        android:hint="@string/date_hint"
+        android:inputType="date"
+        android:minHeight="48dp"
+        android:textColorHint="@color/deep_space_sparkle"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/dateEditTextImg"
+        android:layout_gravity="center"
+        android:layout_width="28dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/calendar_icon" />
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="89dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/date_hint"
+            android:minHeight="48dp"
+            android:text="Time"
+            android:textColorHint="@color/deep_space_sparkle"
+            android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/dateEditText"
+            android:id="@+id/timeEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:minHeight="48dp"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginVertical="10dp"
             android:ems="10"
-            android:focusable="false"
+            android:focusable="true"
             android:gravity="center"
-            android:hint="@string/date_hint"
-            android:inputType="date"
+            android:hint="@string/time_hint"
+            android:inputType="time"
             android:textColorHint="@color/deep_space_sparkle"
             android:textSize="18sp" />
 
+        <ImageView
+            android:id="@+id/timeEditTextImg"
+            android:layout_width="36dp"
+            android:layout_height="29dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/time_icon" />
+
+    </LinearLayout>
 
         <EditText
             android:id="@+id/descriptionEditText"
